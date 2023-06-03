@@ -1,8 +1,21 @@
 import User_Model from "../Models/userModel.js";
+import bcrypt from "bcryptjs";
 
 const userService = {
   createUserService: async (data) => {
-    console.log(data);
+    // generating a hashed password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(data.password, salt);
+    if (!hashedPassword) {
+      return false;
+    }
+    const user = await User_Model.create({
+      name: data.name,
+      email: data.email,
+      password: hashedPassword,
+    });
+
+    return user;
   },
 };
 

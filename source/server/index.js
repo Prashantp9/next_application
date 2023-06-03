@@ -1,11 +1,12 @@
 import "dotenv/config";
 
-import Express from "express";
 import connectDB from "./connection/mongoCon.js";
+import express from "express";
 import userRouter from "./Router/userRoute.js";
 
-const app = Express();
+const app = express();
 const PORT = process.env.PORT || 5000;
+app.use(express.json());
 // Database connection
 connectDB();
 //app Routes
