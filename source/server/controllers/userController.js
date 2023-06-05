@@ -6,10 +6,11 @@ const UserController = {
   createUserController: async (req, res) => {
     try {
       const createUser = await userService.createUserService(req.body);
+
       if (createUser) {
         // Generating jwtToken
         const tokenParams = {
-          id: req.body._id,
+          id: createUser?._id,
           name: req.body.name,
           email: req.body.email,
         };
@@ -31,15 +32,20 @@ const UserController = {
         });
       }
     } catch (error) {
-      console.log(error);
+      if (error.code == 11000) {
+        return res.status(400).json({
+          message: "data already exits in the database",
+        });
+      }
       res.status(500).json({
         error: error,
       });
     }
   },
-  deleteUserController: (req, res) => {},
-  updateUserController: (req, res) => {},
-  findUserController: (req, res) => {},
+  userLoginController: async (req, res) => {},
+  deleteUserController: async (req, res) => {},
+  updateUserController: async (req, res) => {},
+  findUserController: async (req, res) => {},
 };
 
 export default UserController;
