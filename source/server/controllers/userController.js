@@ -5,7 +5,7 @@ import userService from "../service/userService.js";
 const UserController = {
   createUserController: async (req, res) => {
     try {
-      const createUser = await userService.createUserService(req.body);
+      let createUser = await userService.createUserService(req.body);
 
       if (createUser) {
         // Generating jwtToken
@@ -15,13 +15,16 @@ const UserController = {
           email: req.body.email,
         };
         const jwtToken = await jwt.sign(
-          { tokenParams },
+          tokenParams,
           process.env.TOKEN_SECRET_KEY
         );
+
+        createUser = JSON.parse(JSON.stringify(createUser));
         return res.status(200).json({
           type: responseType.SUCCESS,
           message: "successfully created user",
-          data: { data: createUser, token: jwtToken },
+          // data: { data: createUser, token: jwtToken },
+          data: { ...createUser, jwtToken },
         });
       }
       if (!createUser) {

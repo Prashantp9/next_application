@@ -1,12 +1,14 @@
 import "dotenv/config";
 
 import connectDB from "./connection/mongoCon.js";
+import cookieParser from "cookie-parser";
 import express from "express";
 import userRouter from "./Router/userRoute.js";
 
 const app = express();
-const PORT = process.env.PORT || 5000;
 app.use(express.json());
+app.use(cookieParser());
+const PORT = process.env.PORT || 5000;
 // Database connection
 connectDB();
 //app Routes
