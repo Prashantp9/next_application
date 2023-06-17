@@ -98,6 +98,65 @@ const UserController = {
       next(error);
     }
   },
+  adminLogin: async (req, res, next) => {
+    try {
+      const getUserByPhone = await User_Model.findOne({
+        phone: req.body.phone,
+      });
+      if (!getUserByPhone) {
+        return res.status(400).json({
+          type: responseType.FAILURE,
+          message: "Admin not found",
+          error: [],
+        });
+      }
+      if (!getUserByPhone?.isAdmin) {
+        res.status(400).json({
+          type: responseType.FAILURE,
+          message: "Not an Admin",
+          error: [],
+        });
+      }
+      if (getUserByPhone?.isAdmin) {
+        const password = await bcrypt.compare(
+          req.body.password,
+          getUserByPhone?.password
+        );
+        if (password) {
+          const tokenParams = {
+            id: getUserByPhone?._id,
+            name: getUserByPhone?.name,
+            email: getUserByPhone?.email,
+          };
+          const jwtToken = await jwt.sign(
+            tokenParams,
+            process.env.TOKEN_SECRET_KEY
+          );
+          return res.cookie(token.ADMIN_TOKEN, jwtToken).status(200).json({
+            type: responseType.SUCCESS,
+            message: "Admin logged in",
+          });
+        }
+        if (!password) {
+          res.status(400).json({
+            type: responseType.FAILURE,
+            message: "invalid credentials",
+            error: [],
+          });
+        }
+      }
+    } catch (error) {}
+  },
+  logout: async (req, res, next) => {
+    try {
+      return res.clearCookie(token.USER_TOKEN).status(200).json({
+        type: responseType.SUCCESS,
+        message: "Logout Successfully",
+      });
+    } catch (error) {
+      next(error);
+    }
+  },
   deleteUserController: async (req, res) => {},
   updateUserController: async (req, res) => {},
   findUserController: async (req, res) => {},

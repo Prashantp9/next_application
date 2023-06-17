@@ -5,6 +5,7 @@ const responseType = {
 
 const token = {
   USER_TOKEN: "USER_TOKEN",
+  ADMIN_TOKEN: "ADMIN_TOKEN",
 };
 const enviromentVar = {
   PROD: "PRODUCTION",

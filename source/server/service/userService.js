@@ -14,6 +14,7 @@ const userService = {
       email: data.email,
       phone: data.phone,
       password: hashedPassword,
+      isAdmin: data.isAdmin,
     });
 
     return user;
