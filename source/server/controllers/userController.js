@@ -35,6 +35,7 @@ const UserController = {
         });
       }
     } catch (error) {
+      console.log(error);
       if (error.code == 11000) {
         return res.status(400).json({
           message: "data already exits in the database",
@@ -45,7 +46,10 @@ const UserController = {
       });
     }
   },
-  userLoginController: async (req, res) => {},
+  login: async (req, res) => {
+    try {
+    } catch (error) {}
+  },
   deleteUserController: async (req, res) => {},
   updateUserController: async (req, res) => {},
   findUserController: async (req, res) => {},

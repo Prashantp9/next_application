@@ -12,6 +12,7 @@ const userService = {
     const user = await User_Model.create({
       name: data.name,
       email: data.email,
+      phone: data.phone,
       password: hashedPassword,
     });
 

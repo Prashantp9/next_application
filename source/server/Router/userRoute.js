@@ -5,23 +5,15 @@ import {
 
 import { Router } from "express";
 import UserController from "../controllers/userController.js";
+import { authUser } from "./userAuthRoute.js";
+import userService from "../service/userService.js";
 
 const userRouter = Router();
 
-// userRouter.get("/test", (req, res) => {
-//   res.send("user api test");
-// });
 userRouter.post("/create_user", UserController.createUserController);
-userRouter.post("/auth_token_login", verifyAuthTokenMiddleware, (req, res) => {
-  try {
-    res
-      .cookie("token", req.headers.auth_token)
-      .status(200)
-      .send("cookie has been set");
-  } catch (error) {}
-});
-userRouter.post("/cookie_test", verifyByCookie, (req, res) => {
-  res.status(200).send("user authentication has been completed");
-});
+userRouter.post("/auth_token_login", verifyAuthTokenMiddleware);
+userRouter.post("/user_authby_cookie", verifyByCookie);
+// sercured user Routes
+userRouter.use("/auth_user", verifyByCookie, authUser);
 
 export default userRouter;
