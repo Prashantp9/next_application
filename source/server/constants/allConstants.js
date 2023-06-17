@@ -3,4 +3,12 @@ const responseType = {
   FAILURE: "FAILURE",
 };
 
-export { responseType };
+const token = {
+  USER_TOKEN: "USER_TOKEN",
+};
+const enviromentVar = {
+  PROD: "PRODUCTION",
+  TEST: "TESTING",
+};
+
+export { responseType, token, enviromentVar };

@@ -3,12 +3,10 @@ import jwt from "jsonwebtoken";
 import { responseType } from "../constants/allConstants.js";
 
 export const verifyAuthTokenMiddleware = async (req, res, next) => {
-  console.log(req.body);
   try {
     if (req.body.auth_token) {
       const token = req.body?.auth_token;
       const tokenData = jwt.verify(token, process.env.TOKEN_SECRET_KEY);
-      console.log(tokenData);
       // const userId = tokenData?.tokenParams.id || tokenData?.id;
       const userId = tokenData?.id;
       const user = await User_Model.findById(userId);

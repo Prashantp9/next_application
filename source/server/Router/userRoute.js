@@ -13,6 +13,7 @@ const userRouter = Router();
 userRouter.post("/create_user", UserController.createUserController);
 userRouter.post("/auth_token_login", verifyAuthTokenMiddleware);
 userRouter.post("/user_authby_cookie", verifyByCookie);
+userRouter.post("/user_login", UserController.login);
 // sercured user Routes
 userRouter.use("/auth_user", verifyByCookie, authUser);
 
