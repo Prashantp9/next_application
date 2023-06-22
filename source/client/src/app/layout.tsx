@@ -4,6 +4,7 @@ import "./globals.css";
 import "./layout.css";
 
 import { Inter } from "next/font/google";
+import Navbar from "./navbar";
 import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -42,14 +43,7 @@ export default function RootLayout({
             style={{ width: sidebar ? "80%" : "100%" }}
           >
             <div className="app_navbar_container">
-              {" "}
-              <p
-                onClick={() => {
-                  SetSidebar(true);
-                }}
-              >
-                navbar
-              </p>
+              <Navbar />
             </div>
             <div className="applayout_children_container">{children}</div>
           </div>

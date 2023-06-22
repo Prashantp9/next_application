@@ -24,7 +24,7 @@
   transition-duration: 50ms;
 }
 .app_navbar_container {
-  height: 10%;
+  height: 7%;
   border-bottom: var(--layout-border);
 }
 .applayout_children_container {
