@@ -18,7 +18,7 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const [sidebar, SetSidebar] = useState(true);
+  const [sidebar, SetSidebar] = useState(false);
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
@@ -35,7 +35,7 @@ export default function RootLayout({
                 SetSidebar(false);
               }}
             >
-              sidebar
+              {/* sidebar */}
             </p>
           </div>
           <div
@@ -43,7 +43,10 @@ export default function RootLayout({
             style={{ width: sidebar ? "80%" : "100%" }}
           >
             <div className="app_navbar_container">
-              <Navbar />
+              <Navbar
+                isSidebar={sidebar}
+                setSidebar={() => SetSidebar(!sidebar)}
+              />
             </div>
             <div className="applayout_children_container">{children}</div>
           </div>
