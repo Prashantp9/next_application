@@ -91,9 +91,11 @@
 }
 /* sidebar button*/
 .navbar_sidebar_button {
-  margin-left: 2rem;
+  /* margin-left: 2rem; */
   position: relative;
   cursor: pointer;
+  width: 2rem;
+  height: 100%;
 }
 .menu-item,
 .menu-open-button {

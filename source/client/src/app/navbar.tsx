@@ -39,21 +39,21 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
                   <p className="notification-active"></p>
                 </div>
               </div>
-            </div>
-            <div className="navbar_sidebar_button">
-              <input
-                type="checkbox"
-                className="menu-open"
-                name="menu-open"
-                id="menu-open"
-                checked={isSidebar}
-                onChange={() => setSidebar()}
-              />
-              <label className="menu-open-button" htmlFor="menu-open">
-                <span className="lines line-1"></span>
-                <span className="lines line-2"></span>
-                <span className="lines line-3"></span>
-              </label>
+              <div className="navbar_sidebar_button">
+                <input
+                  type="checkbox"
+                  className="menu-open"
+                  name="menu-open"
+                  id="menu-open"
+                  checked={isSidebar}
+                  onChange={() => setSidebar()}
+                />
+                <label className="menu-open-button" htmlFor="menu-open">
+                  <span className="lines line-1"></span>
+                  <span className="lines line-2"></span>
+                  <span className="lines line-3"></span>
+                </label>
+              </div>
             </div>
           </div>
         </div>
