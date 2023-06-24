@@ -5,6 +5,7 @@ import "./layout.css";
 
 import { Inter } from "next/font/google";
 import Navbar from "./navbar";
+import { ReduxProvider } from "./redux/features/provider";
 import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,35 +23,37 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
-        <div className="applayout_container">
-          <div
-            className="applayout_sidebar_container"
-            style={{
-              width: sidebar ? "20%" : "0%",
-              display: !sidebar ? "none" : "block",
-            }}
-          >
-            <p
-              onClick={() => {
-                SetSidebar(false);
+        <ReduxProvider>
+          <div className="applayout_container">
+            <div
+              className="applayout_sidebar_container"
+              style={{
+                width: sidebar ? "20%" : "0%",
+                display: !sidebar ? "none" : "block",
               }}
             >
-              {/* sidebar */}
-            </p>
-          </div>
-          <div
-            className="applayout_hori_container"
-            style={{ width: sidebar ? "80%" : "100%" }}
-          >
-            <div className="app_navbar_container">
-              <Navbar
-                isSidebar={sidebar}
-                setSidebar={() => SetSidebar(!sidebar)}
-              />
+              <p
+                onClick={() => {
+                  SetSidebar(false);
+                }}
+              >
+                {/* sidebar */}
+              </p>
             </div>
-            <div className="applayout_children_container">{children}</div>
+            <div
+              className="applayout_hori_container"
+              style={{ width: sidebar ? "80%" : "100%" }}
+            >
+              <div className="app_navbar_container">
+                <Navbar
+                  isSidebar={sidebar}
+                  setSidebar={() => SetSidebar(!sidebar)}
+                />
+              </div>
+              <div className="applayout_children_container">{children}</div>
+            </div>
           </div>
-        </div>
+        </ReduxProvider>
       </body>
     </html>
   );
