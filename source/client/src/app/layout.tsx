@@ -28,7 +28,7 @@ export default function RootLayout({
             <div
               className="applayout_sidebar_container"
               style={{
-                width: sidebar ? "20%" : "0%",
+                width: sidebar ? "15%" : "0%",
                 display: !sidebar ? "none" : "block",
               }}
             >
@@ -42,7 +42,7 @@ export default function RootLayout({
             </div>
             <div
               className="applayout_hori_container"
-              style={{ width: sidebar ? "80%" : "100%" }}
+              style={{ width: sidebar ? "85%" : "100%" }}
             >
               <div className="app_navbar_container">
                 <Navbar

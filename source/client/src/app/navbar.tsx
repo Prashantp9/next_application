@@ -1,6 +1,8 @@
 import "./navbar.css";
 
-import { AppDispatch } from "./redux/store";
+import { AppDispatch, useAppSelector } from "./redux/store";
+
+import Login from "./login";
 import { setLogin } from "./redux/features/applicationStates";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -13,9 +15,15 @@ interface Props {
 export default function Navbar({ isSidebar, setSidebar }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const handleLogin = () => dispatch(setLogin(""));
+  const isLogin = useAppSelector(
+    (state) => state.rootReducer.appState.value.isLogin
+  );
 
   return (
     <>
+      {/* login PopUp */}
+      {isLogin && <Login />}
+
       <div className="navbar_container">
         <div className="navbar_content">
           <div className="navbar_search_input_container">
