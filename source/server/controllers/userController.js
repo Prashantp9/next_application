@@ -95,6 +95,9 @@ const UserController = {
         });
       }
     } catch (error) {
+      return res.status(500).json({
+        error: error,
+      });
       next(error);
     }
   },
