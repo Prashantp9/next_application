@@ -2,6 +2,7 @@ import { BASE_URL, IDLE, Type } from "@/app/constants/constants";
 import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
+import { rejects } from "assert";
 
 axios.defaults.withCredentials = true;
 
@@ -27,7 +28,7 @@ const initialState = {
       type: "",
       errors: [],
     },
-    isError: true,
+    isError: false,
     isAdmin: false,
     userName: "",
     id: "",
@@ -88,6 +89,7 @@ export const auth = createSlice({
         state.value.isLoading = true;
       })
       .addCase(userRegistrationThunk.fulfilled, (state, { payload }) => {
+        console.log(payload);
         state.value.isLoading = true;
         switch (payload.type) {
           case Type.SUCCESS:
@@ -102,6 +104,14 @@ export const auth = createSlice({
                 errors: payload.errors,
               });
         }
+      })
+      .addCase(userRegistrationThunk.rejected, (state, { payload }) => {
+        state.value.isError = true;
+        state.value.errorData = {
+          type: "FAILURE",
+          message: "SERVER ERRO",
+          errors: [],
+        };
       });
   },
 });

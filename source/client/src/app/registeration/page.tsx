@@ -18,6 +18,9 @@ export default function registeration() {
   const isError = useAppSelector(
     (state) => state.rootReducer.authReducer.value.isError
   );
+  const errorData = useAppSelector(
+    (state) => state.rootReducer.authReducer.value.errorData
+  );
   const dispatch = useDispatch<AppDispatch>();
   type FormData = yup.InferType<typeof schema>;
   const phoneRegExp =
@@ -63,7 +66,11 @@ export default function registeration() {
   return (
     <>
       {isError && (
-        <ApplicationAlert success={false} errorData={{}} setAlert={setAlert} />
+        <ApplicationAlert
+          success={false}
+          errorData={errorData}
+          setAlert={setAlert}
+        />
       )}
 
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
