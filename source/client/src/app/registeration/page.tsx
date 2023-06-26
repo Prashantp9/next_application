@@ -2,12 +2,24 @@
 
 import * as yup from "yup";
 
+import { AppDispatch, useAppSelector } from "../redux/store";
+import {
+  setCustomAlert,
+  userRegistrationThunk,
+} from "../redux/features/userAuthSlice";
+
+import ApplicationAlert from "../components/alert";
+import ApplicationAlertFunction from "../components/alert";
+import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function registeration() {
+  const isError = useAppSelector(
+    (state) => state.rootReducer.authReducer.value.isError
+  );
+  const dispatch = useDispatch<AppDispatch>();
   type FormData = yup.InferType<typeof schema>;
-  const onSubmit = (data: FormData) => alert("adfohisdo");
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
@@ -22,6 +34,11 @@ export default function registeration() {
     name: yup.string().required("name is required").max(20),
   });
 
+  const onSubmit = (data: FormData) => {
+    dispatch(userRegistrationThunk(data)).then((data) => {
+      console.log(data);
+    });
+  };
   const {
     register,
     handleSubmit,
@@ -40,8 +57,15 @@ export default function registeration() {
     );
   };
 
+  const setAlert = () => {
+    dispatch(setCustomAlert());
+  };
   return (
     <>
+      {isError && (
+        <ApplicationAlert success={false} errorData={{}} setAlert={setAlert} />
+      )}
+
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8 bg-white">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
