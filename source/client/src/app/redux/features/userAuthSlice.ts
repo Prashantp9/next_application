@@ -93,6 +93,18 @@ export const userLoginThunk = createAsyncThunk(
   }
 );
 
+export const userLogoutThunk = createAsyncThunk(
+  "user/user_logout",
+  async () => {
+    try {
+      const res = await axios.post(`${BASE_URL}/user/user_logout`);
+      return res.data;
+    } catch (error: any) {
+      return error.response.data;
+    }
+  }
+);
+
 export const auth = createSlice({
   name: "auth",
   initialState,
@@ -204,6 +216,39 @@ export const auth = createSlice({
         }
       })
       .addCase(userLoginThunk.rejected, (state, { payload }) => {
+        state.value.isLoading = false;
+        state.value.isError = true;
+        state.value.errorData = {
+          type: "FAILURE",
+          message: "SERVER ERROR",
+          errors: [],
+        };
+      })
+      // userLogoutThunk
+      .addCase(userLogoutThunk.pending, (state, { payload }) => {
+        state.value.isLoading = true;
+      })
+      .addCase(userLogoutThunk.fulfilled, (state, { payload }) => {
+        state.value.isLoading = false;
+        switch (payload.type) {
+          case Type.SUCCESS:
+            state.value.isLogin = false;
+            state.value.userName = "";
+            state.value.isAdmin = false;
+            state.value.id = "";
+            state.value.phone = "";
+            break;
+
+          default:
+            (state.value.isError = true),
+              (state.value.errorData = {
+                message: payload.message,
+                type: payload.type,
+                errors: payload.errors,
+              });
+        }
+      })
+      .addCase(userLogoutThunk.rejected, (state, { payload }) => {
         state.value.isLoading = false;
         state.value.isError = true;
         state.value.errorData = {

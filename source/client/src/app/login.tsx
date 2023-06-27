@@ -95,6 +95,10 @@ export default function Login() {
                           className="border-gray-800 border-2 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                           id="exampleFormControlInput3"
                           placeholder="Email address"
+                          onInput={(e: React.FormEvent<HTMLInputElement>) => {
+                            const val = e.currentTarget.value;
+                            e.currentTarget.value = val.slice(0, 10);
+                          }}
                           {...register("phone")}
                           name="phone"
                         />
@@ -149,7 +153,10 @@ export default function Login() {
                           Forgot password?
                         </a>
                       </div>
-                      <div className="mb-6 flex items-center justify-between">
+                      <div
+                        onClick={() => dispatch(setLogin(""))}
+                        className="mb-6 flex items-center justify-between"
+                      >
                         <Link
                           className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
                           href="/registeration"

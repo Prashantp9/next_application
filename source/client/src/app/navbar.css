@@ -113,6 +113,12 @@
   background-clip: text; */
   font-weight: 500;
 }
+.logout-container {
+  border-radius: 5px;
+  color: #ffffff;
+  padding: 9px 16px;
+  font-weight: 600;
+}
 
 /* sidebar button*/
 .navbar_sidebar_button {
