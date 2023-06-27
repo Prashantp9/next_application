@@ -18,6 +18,7 @@ type authstate = {
   isAdmin: boolean;
   userName: string;
   id: string;
+  phone: string;
 };
 const initialState = {
   value: {
@@ -32,6 +33,7 @@ const initialState = {
     isAdmin: false,
     userName: "",
     id: "",
+    phone: "",
   } as authstate,
 } as initialState;
 
@@ -57,8 +59,7 @@ export const userRegistrationThunk = createAsyncThunk(
       const res = await axios.post(`${BASE_URL}/user/create_user`, data);
       return res.data;
     } catch (error: any) {
-      console.log(error);
-      return error.data;
+      return error.response.data;
     }
   }
 );
@@ -89,14 +90,16 @@ export const auth = createSlice({
         state.value.isLoading = true;
       })
       .addCase(userRegistrationThunk.fulfilled, (state, { payload }) => {
-        console.log(payload);
         state.value.isLoading = true;
         switch (payload.type) {
           case Type.SUCCESS:
             state.value.userName = payload.data.name;
+            state.value.isAdmin = payload.data.isAdmin;
+            state.value.id = payload.data._id;
+            state.value.phone = payload.data.phone;
             break;
 
-          case Type.DEFAULT:
+          default:
             (state.value.isError = true),
               (state.value.errorData = {
                 message: payload.message,

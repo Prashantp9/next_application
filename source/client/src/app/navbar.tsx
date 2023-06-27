@@ -48,7 +48,7 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
                 onClick={() => handleLogin()}
               >
                 <p>
-                  <span>Login</span>
+                  <span>Login / Sign Up</span>
                 </p>
               </div>
 

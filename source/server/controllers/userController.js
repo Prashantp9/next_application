@@ -27,15 +27,24 @@ const UserController = {
         );
 
         createUser = JSON.parse(JSON.stringify(createUser));
-        return res.status(200).json({
-          type: responseType.SUCCESS,
-          message: "successfully created user",
-          // data: { data: createUser, token: jwtToken },
-          data:
-            process.env.ENVIROMENT == enviromentVar.PROD
-              ? {}
-              : { ...createUser, jwtToken },
-        });
+        return res
+          .cookie(token.USER_TOKEN, jwtToken, {
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
+            secure: false,
+            httpOnly: true,
+            sameSite: "lax",
+            path: "/",
+            overwrite: true,
+          })
+          .status(200)
+          .json({
+            type: responseType.SUCCESS,
+            message: "successfully created user",
+            data:
+              process.env.ENVIROMENT == enviromentVar.PROD
+                ? {}
+                : { ...createUser, jwtToken },
+          });
       }
       if (!createUser) {
         return res.status(400).json({
@@ -48,7 +57,9 @@ const UserController = {
       console.log(error);
       if (error.code == 11000) {
         return res.status(400).json({
-          message: "data already exits in the database",
+          type: responseType.FAILURE,
+          message: "user already exist",
+          error: [],
         });
       }
       res.status(500).json({
@@ -95,10 +106,10 @@ const UserController = {
         });
       }
     } catch (error) {
+      console.log(error);
       return res.status(500).json({
         error: error,
       });
-      next(error);
     }
   },
   adminLogin: async (req, res, next) => {

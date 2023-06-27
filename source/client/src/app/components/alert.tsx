@@ -1,6 +1,6 @@
 interface Props {
   success: boolean;
-  errorData: object;
+  errorData: any;
   setAlert: any;
 }
 export default function ApplicationAlert({
@@ -11,15 +11,11 @@ export default function ApplicationAlert({
   return (
     <>
       <div
-        className={`bg-${success ? "green" : "red"}-100 border border-${
-          success ? "green" : "red"
-        }-400 text-${success ? "green" : "red"}-700 px-4 py-3 rounded relative`}
+        className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative`}
         role="alert"
       >
-        <strong className="font-bold">Holy smokes!</strong>
-        <span className="block sm:inline">
-          Something seriously bad happened.
-        </span>
+        <strong className="font-bold">{errorData?.type} </strong>
+        <span className="block sm:inline">{errorData?.message}</span>
         <span className="absolute top-0 bottom-0 right-0 px-4 py-3">
           <svg
             className={`fill-current h-6 w-6 text-${

@@ -1,6 +1,7 @@
 import "./navbar.css";
 
 import { AppDispatch } from "./redux/store";
+import Link from "next/link";
 import { setLogin } from "./redux/features/applicationStates";
 import { useDispatch } from "react-redux";
 
@@ -93,6 +94,14 @@ export default function Login() {
                       >
                         Forgot password?
                       </a>
+                    </div>
+                    <div className="mb-6 flex items-center justify-between">
+                      <Link
+                        className="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600"
+                        href="/registeration"
+                      >
+                        Register
+                      </Link>
                     </div>
 
                     {/* <!-- Submit button --> */}

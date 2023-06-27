@@ -10,8 +10,11 @@ import {
 
 import ApplicationAlert from "../components/alert";
 import ApplicationAlertFunction from "../components/alert";
+import { Type } from "../constants/constants";
 import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function registeration() {
@@ -21,6 +24,7 @@ export default function registeration() {
   const errorData = useAppSelector(
     (state) => state.rootReducer.authReducer.value.errorData
   );
+  const router = useRouter();
   const dispatch = useDispatch<AppDispatch>();
   type FormData = yup.InferType<typeof schema>;
   const phoneRegExp =
@@ -39,7 +43,9 @@ export default function registeration() {
 
   const onSubmit = (data: FormData) => {
     dispatch(userRegistrationThunk(data)).then((data) => {
-      console.log(data);
+      if (data.payload.type == Type.SUCCESS) {
+        router.push("/");
+      }
     });
   };
   const {
@@ -67,7 +73,7 @@ export default function registeration() {
     <>
       {isError && (
         <ApplicationAlert
-          success={false}
+          success={true}
           errorData={errorData}
           setAlert={setAlert}
         />
