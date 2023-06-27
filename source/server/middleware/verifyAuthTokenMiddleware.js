@@ -48,7 +48,11 @@ export const verifyByCookie = async (req, res, next) => {
         });
       }
     } else {
-      res.status(400).send("cookie not found");
+      res.status(400).json({
+        type: responseType.FAILURE,
+        message: "cookie not found",
+        error: [],
+      });
     }
   } catch (error) {
     res.status(500).json({

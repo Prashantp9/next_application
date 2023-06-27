@@ -11,6 +11,7 @@ type initialState = {
 };
 
 type authstate = {
+  isLogin: boolean;
   isLoading: boolean;
   isError: boolean;
   status: object;
@@ -29,6 +30,7 @@ const initialState = {
       type: "",
       errors: [],
     },
+    isLogin: false,
     isError: false,
     isAdmin: false,
     userName: "",
@@ -64,6 +66,33 @@ export const userRegistrationThunk = createAsyncThunk(
   }
 );
 
+export const userAuthByCookie = createAsyncThunk(
+  "user/user_authby_cookie",
+  async () => {
+    try {
+      const res = await axios.post(`${BASE_URL}/user/user_authby_cookie`);
+      return res.data;
+    } catch (error: any) {
+      return error.response.data;
+    }
+  }
+);
+type loginData = {
+  phone: string;
+  password: string;
+};
+export const userLoginThunk = createAsyncThunk(
+  "user/user_login",
+  async (data: loginData) => {
+    try {
+      const res = await axios.post(`${BASE_URL}/user/user_login`, data);
+      return res.data;
+    } catch (error: any) {
+      return error.response.data;
+    }
+  }
+);
+
 export const auth = createSlice({
   name: "auth",
   initialState,
@@ -90,9 +119,10 @@ export const auth = createSlice({
         state.value.isLoading = true;
       })
       .addCase(userRegistrationThunk.fulfilled, (state, { payload }) => {
-        state.value.isLoading = true;
+        state.value.isLoading = false;
         switch (payload.type) {
           case Type.SUCCESS:
+            state.value.isLogin = true;
             state.value.userName = payload.data.name;
             state.value.isAdmin = payload.data.isAdmin;
             state.value.id = payload.data._id;
@@ -109,10 +139,76 @@ export const auth = createSlice({
         }
       })
       .addCase(userRegistrationThunk.rejected, (state, { payload }) => {
+        state.value.isLoading = false;
         state.value.isError = true;
         state.value.errorData = {
           type: "FAILURE",
           message: "SERVER ERRO",
+          errors: [],
+        };
+      })
+      .addCase(userAuthByCookie.pending, (state, { payload }) => {
+        state.value.isLoading = true;
+      })
+      .addCase(userAuthByCookie.fulfilled, (state, { payload }) => {
+        state.value.isLoading = false;
+        switch (payload.type) {
+          case Type.SUCCESS:
+            state.value.isLogin = true;
+            state.value.userName = payload.data.name;
+            state.value.isAdmin = payload.data.isAdmin;
+            state.value.id = payload.data._id;
+            state.value.phone = payload.data.phone;
+            break;
+
+          default:
+            (state.value.isError = true),
+              (state.value.errorData = {
+                message: payload.message,
+                type: payload.type,
+                errors: payload.errors,
+              });
+        }
+      })
+      .addCase(userAuthByCookie.rejected, (state, { payload }) => {
+        state.value.isLoading = false;
+        state.value.isError = true;
+        state.value.errorData = {
+          type: "FAILURE",
+          message: "SERVER ERROR",
+          errors: [],
+        };
+      })
+      // userLogin
+      .addCase(userLoginThunk.pending, (state, { payload }) => {
+        state.value.isLoading = true;
+      })
+      .addCase(userLoginThunk.fulfilled, (state, { payload }) => {
+        state.value.isLoading = false;
+        switch (payload.type) {
+          case Type.SUCCESS:
+            state.value.isLogin = true;
+            state.value.userName = payload.data.name;
+            state.value.isAdmin = payload.data.isAdmin;
+            state.value.id = payload.data._id;
+            state.value.phone = payload.data.phone;
+            break;
+
+          default:
+            (state.value.isError = true),
+              (state.value.errorData = {
+                message: payload.message,
+                type: payload.type,
+                errors: payload.errors,
+              });
+        }
+      })
+      .addCase(userLoginThunk.rejected, (state, { payload }) => {
+        state.value.isLoading = false;
+        state.value.isError = true;
+        state.value.errorData = {
+          type: "FAILURE",
+          message: "SERVER ERROR",
           errors: [],
         };
       });

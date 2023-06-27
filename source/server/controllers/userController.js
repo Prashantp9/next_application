@@ -96,6 +96,7 @@ const UserController = {
         return res.cookie(token.USER_TOKEN, jwtToken).status(200).json({
           type: responseType.SUCCESS,
           message: "logged in",
+          data: getUserByPhone,
         });
       }
       if (!password) {
@@ -110,6 +111,30 @@ const UserController = {
       return res.status(500).json({
         error: error,
       });
+    }
+  },
+  userLoginByToken: async (req, res, next) => {
+    try {
+      if (req.body._id) {
+        const user = await User_Model.findById(req.body._id);
+        const userData = JSON.parse(JSON.stringify(user));
+        if (user) {
+          return res.status(200).json({
+            type: responseType.SUCCESS,
+            messsage: "successfully fetched user data",
+            data: userData,
+          });
+        }
+        if (!user) {
+          return res.status(400).json({
+            type: responseType.FAILURE,
+            messsage: "failed to fetch data",
+            error: [],
+          });
+        }
+      }
+    } catch (error) {
+      next(error);
     }
   },
   adminLogin: async (req, res, next) => {

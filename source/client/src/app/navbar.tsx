@@ -1,7 +1,12 @@
 import "./navbar.css";
 
 import { AppDispatch, useAppSelector } from "./redux/store";
+import {
+  setCustomAlert,
+  userAuthByCookie,
+} from "./redux/features/userAuthSlice";
 
+import ApplicationAlert from "./components/alert";
 import Login from "./login";
 import { setLogin } from "./redux/features/applicationStates";
 import { useDispatch } from "react-redux";
@@ -18,6 +23,20 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
   const isLogin = useAppSelector(
     (state) => state.rootReducer.appState.value.isLogin
   );
+  const isError = useAppSelector(
+    (state) => state.rootReducer.authReducer.value.isError
+  );
+  const errorData = useAppSelector(
+    (state) => state.rootReducer.authReducer.value.errorData
+  );
+  // login by token
+  useEffect(() => {
+    dispatch(userAuthByCookie()).then((data) => console.log(data));
+  }, []);
+
+  const setAlert = () => {
+    dispatch(setCustomAlert());
+  };
 
   return (
     <>
