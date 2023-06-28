@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Login() {
+  // global states =============================================================
   const isError = useAppSelector(
     (state) => state.rootReducer.authReducer.value.isError
   );
@@ -21,15 +22,11 @@ export default function Login() {
     (state) => state.rootReducer.authReducer.value.errorData
   );
   const dispatch = useDispatch<AppDispatch>();
-  const handleLogin = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.currentTarget === event.target) {
-      dispatch(setLogin(""));
-    }
-  };
-  // Login form
+
+  // Login form / validation =====================================================
   const schema = yup.object().shape({
-    password: yup.string().required("Password is required").max(20),
-    phone: yup.string().min(10).max(10),
+    password: yup.string().required("Password is required").required(),
+    phone: yup.string().min(10, "invalid phone number").max(10).required(),
   });
 
   const {
@@ -40,16 +37,22 @@ export default function Login() {
   } = useForm({
     resolver: yupResolver(schema),
   });
+
   const onSubmit = (data: any) => {
     dispatch(userLoginThunk(data)).then((data) => {
       data.payload.type == Type.SUCCESS && dispatch(setLogin(""));
     });
   };
-
+  //  ==============================================================
+  //
+  const handleLogin = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.currentTarget === event.target) {
+      dispatch(setLogin(""));
+    }
+  };
   const handleBlur = async (e: React.FormEvent<HTMLInputElement>) => {
     await trigger(e.currentTarget.value as "password" | "phone");
   };
-
   const setAlert = () => {
     dispatch(setCustomAlert());
   };
@@ -89,6 +92,9 @@ export default function Login() {
                   <div className="md:w-8/12 lg:ml-6 lg:w-5/12">
                     <form>
                       {/* <!-- Email input --> */}
+                      <div className="text-red-400 text-xs">
+                        {errors.phone ? errors.phone?.message : ""}
+                      </div>
                       <div className="relative mb-6">
                         <input
                           type="text"
@@ -112,6 +118,9 @@ export default function Login() {
 
                       {/* <!-- Password input --> */}
                       <div className="relative mb-6" data-te-input-wrapper-init>
+                        <div className="text-red-400 text-xs">
+                          {errors.password ? errors.password?.message : ""}
+                        </div>
                         <input
                           type="password"
                           className="border-gray-800 border-2 peer block min-h-[auto] w-full rounded border-0 bg-transparent px-3 py-[0.32rem] leading-[2.15] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&:not([data-te-input-placeholder-active])]:placeholder:opacity-0"

@@ -105,7 +105,7 @@ export default function registeration() {
               >
                 Name
               </label>
-              <div className="text-red-500">
+              <div className="text-red-500 text-xs">
                 {errors.name ? errors.name?.message : ""}
               </div>
               <div className="mt-2">
@@ -127,7 +127,7 @@ export default function registeration() {
               >
                 Email address
               </label>
-              <div className="text-red-500">
+              <div className="text-red-500 text-xs">
                 {errors.email ? errors.email?.message : ""}
               </div>
               <div className="mt-2">
@@ -136,6 +136,7 @@ export default function registeration() {
                   {...register("email")}
                   type="email"
                   autoComplete="email"
+                  onBlur={handleBlur}
                   required
                   className="p-3 block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
@@ -149,7 +150,7 @@ export default function registeration() {
               >
                 Phone Number
               </label>
-              <div className="text-red-500">
+              <div className="text-red-500 text-xs">
                 {errors.phone ? errors.phone?.message : ""}
               </div>
               <div className="mt-2">
@@ -184,7 +185,7 @@ export default function registeration() {
                 </div>
               </div>
 
-              <div className="text-red-500">
+              <div className="text-red-500 text-xs">
                 {errors.password ? errors.password?.message : ""}
               </div>
               <div className="mt-2">
@@ -210,16 +211,6 @@ export default function registeration() {
               </button>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm text-gray-500">
-            Not a member?{" "}
-            <a
-              href="#"
-              className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-            >
-              Start a 14 day free trial
-            </a>
-          </p>
         </div>
       </div>
     </>

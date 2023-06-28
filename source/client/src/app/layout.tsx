@@ -6,6 +6,7 @@ import "./layout.css";
 import { Inter } from "next/font/google";
 import Navbar from "./navbar";
 import { ReduxProvider } from "./redux/features/provider";
+import Sidebar from "./sidebar";
 import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -28,21 +29,15 @@ export default function RootLayout({
             <div
               className="applayout_sidebar_container"
               style={{
-                width: sidebar ? "15%" : "0%",
-                display: !sidebar ? "none" : "block",
+                width: sidebar ? "15%" : "4%",
+                // display: !sidebar ? "none" : "block",
               }}
             >
-              <p
-                onClick={() => {
-                  SetSidebar(false);
-                }}
-              >
-                {/* sidebar */}
-              </p>
+              <Sidebar sidebar={sidebar} />
             </div>
             <div
               className="applayout_hori_container"
-              style={{ width: sidebar ? "85%" : "100%" }}
+              style={{ width: sidebar ? "85%" : "96%" }}
             >
               <div className="app_navbar_container">
                 <Navbar
