@@ -9,6 +9,7 @@ export default function Categories() {
   // useState states
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  const [mProducts, setMProducts] = useState([]);
   // Hooks
   const router = useRouter();
   const pathname = usePathname();
@@ -33,6 +34,7 @@ export default function Categories() {
     try {
       const response = await fetch("https://fakestoreapi.com/products");
       const data = await response.json();
+      setMProducts(data);
       setProducts(data);
     } catch (error) {
       console.log(error);
@@ -60,6 +62,15 @@ export default function Categories() {
     getFakeCategories();
   }, []);
 
+  useEffect(() => {
+    setProducts(
+      mProducts.filter((elm: any, idx) => {
+        return elm?.category == category;
+      })
+    );
+    console.log(products, mProducts);
+  }, [category]);
+
   return (
     <div className="p-3">
       <h4 className="mb-2 mt-0 text-3xl font-medium leading-tight text-primary text-gray-400 mb-5">
@@ -78,12 +89,12 @@ export default function Categories() {
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-4 w-full p-3 h-screen overflow-y-scroll no-scrollbar align-center">
+      <div className="flex flex-wrap gap-3 w-full h-screen overflow-y-scroll no-scrollbar justify-center pb-80 pt-3">
         {products.map((elm: any, idx: number) => (
-          <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer w-60">
-            <div className="w-full h-48 mb-3">
+          <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer w-72 max-h-80">
+            <div className="w-full h-48 mb-3 max-h-48">
               <img
-                className="object-cover h-full w-full"
+                className="object-cover h-full w-full rounded-md"
                 src={elm?.image}
                 alt=""
               />
