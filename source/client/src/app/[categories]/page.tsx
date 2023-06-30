@@ -1,12 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
 
-import Router from "next/router";
+import { useSearchParams } from "next/navigation";
 
 export default function Categories() {
+  // useState states
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+  // Hooks
+  const router = useRouter();
+  const pathname = usePathname();
+  const searchParams = useSearchParams()!;
+  //Search params
+  const category = searchParams.get("category");
+  //temporary function for fetching fake data
 
   const getFakeCategories = async (): Promise<void> => {
     try {
@@ -29,25 +38,47 @@ export default function Categories() {
       console.log(error);
     }
   };
+  //============================================
+  //===========================================Query fuction
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString());
+      params.set(name, value);
+
+      return params.toString();
+    },
+    [searchParams]
+  );
+
+  const changeSearchParams = (paramName: string, paramValue: string) => {
+    router.push(pathname + "?" + createQueryString(paramName, paramValue));
+  };
+  //   =======================================
 
   useEffect(() => {
     getFakeData();
     getFakeCategories();
   }, []);
+
   return (
     <div className="p-3">
       <h4 className="mb-2 mt-0 text-3xl font-medium leading-tight text-primary text-gray-400 mb-5">
         Categories
       </h4>
       <div className="flex flex-wrap content-around w-full gap-2 border-b-4  border-slate-400 pb-7">
-        {categories.concat()?.map((elm: any, idx: number) => (
-          <div className="p-5 shadow-lg rounded-md hover:bg-neutral-800 bg-neutral-900">
+        {categories?.map((elm: any, idx: number) => (
+          <div
+            onClick={() => changeSearchParams("category", elm)}
+            className={`cursor-pointer p-5 shadow-lg rounded-md hover:bg-neutral-800  ${
+              category && category == elm ? "bg-neutral-800" : "bg-neutral-900"
+            }`}
+          >
             <p className="text-gray-400 font-semibold">{elm}</p>
           </div>
         ))}
       </div>
 
-      <div className="flex flex-wrap gap-4 w-full p-3 h-screen overflow-y-scroll no-scrollbar">
+      <div className="flex flex-wrap gap-4 w-full p-3 h-screen overflow-y-scroll no-scrollbar align-center">
         {products.map((elm: any, idx: number) => (
           <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer w-60">
             <div className="w-full h-48 mb-3">
