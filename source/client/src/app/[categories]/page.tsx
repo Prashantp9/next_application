@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from "react";
 
+import Router from "next/router";
+
 export default function Categories() {
   const [categories, setCategories] = useState([]);
   const [products, setProducts] = useState([]);
+
   const getFakeCategories = async (): Promise<void> => {
     try {
       const response = await fetch(
@@ -44,9 +47,9 @@ export default function Categories() {
         ))}
       </div>
 
-      <div className="grid grid-cols-5 gap-4 w-full p-3 overflow-y-scroll">
+      <div className="flex flex-wrap gap-4 w-full p-3 h-screen overflow-y-scroll no-scrollbar">
         {products.map((elm: any, idx: number) => (
-          <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer">
+          <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer w-60">
             <div className="w-full h-48 mb-3">
               <img
                 className="object-cover h-full w-full"
