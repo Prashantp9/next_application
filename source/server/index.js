@@ -4,6 +4,7 @@ import connectDB from "./connection/mongoCon.js";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import express from "express";
+import publicRoute from "./Router/publicRoute.js";
 import userRouter from "./Router/userRoute.js";
 
 const app = express();
@@ -21,16 +22,7 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 //app Routes
 app.use("/user", userRouter);
-app.post("/test", (req, res) => {
-  res
-    .cookie("token", "1234", {
-      expires: new Date(Date.now() + 1000 * 60 * 60 * 24),
-      httpOnly: true,
-      domain: "localhost",
-    })
-    .status(200)
-    .send("api works");
-});
+app.use("/public", publicRoute);
 
 app.listen(PORT, () => {
   console.log(`application running on PORT ${PORT}`);
