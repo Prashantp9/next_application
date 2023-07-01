@@ -1,8 +1,11 @@
 "use client";
 
+import { AppDispatch, useAppSelector } from "../redux/store";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+import { fetchProductData } from "../redux/features/productsSlice";
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "next/navigation";
 
 export default function Categories() {
@@ -14,9 +17,15 @@ export default function Categories() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
+  const dispatch = useDispatch<AppDispatch>();
+  const useSelector = useAppSelector;
   //Search params
   const category = searchParams.get("category");
   //temporary function for fetching fake data
+  //global states
+  const gProduct: any[] = useSelector(
+    (state) => state.rootReducer.productState.products
+  );
 
   const getFakeCategories = async (): Promise<void> => {
     try {
@@ -60,6 +69,7 @@ export default function Categories() {
   useEffect(() => {
     getFakeData();
     getFakeCategories();
+    dispatch(fetchProductData());
   }, []);
 
   useEffect(() => {
@@ -90,7 +100,7 @@ export default function Categories() {
       </div>
 
       <div className="flex flex-wrap gap-3 w-full h-screen overflow-y-scroll no-scrollbar justify-center pb-80 pt-3">
-        {products.map((elm: any, idx: number) => (
+        {gProduct.map((elm: any, idx: number) => (
           <div className="flex flex-col p-2 bg-stone-800 rounded-md cursor-pointer w-72 max-h-80">
             <div className="w-full h-48 mb-3 max-h-48">
               <img
