@@ -3,6 +3,6 @@ import productController from "../controllers/productController.js";
 
 const publicRoute = Router();
 
-publicRoute.get("/products", productController.fetchAll);
+publicRoute.post("/products", productController.fetchAll);
 
 export default publicRoute;

@@ -1,16 +1,17 @@
 import "./navbar.css";
 
 import { AppDispatch, useAppSelector } from "./redux/store";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   setCustomAlert,
   userAuthByCookie,
   userLogoutThunk,
 } from "./redux/features/userAuthSlice";
-import { useEffect, useState } from "react";
 
 import ApplicationAlert from "./components/alert";
 import Login from "./login";
 import { setLogin } from "./redux/features/applicationStates";
+import { setSearchInput } from "./redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -44,6 +45,10 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
     dispatch(setCustomAlert());
   };
 
+  const setSearchInp = (e: any) => {
+    dispatch(setSearchInput({ searchInput: e.target.value }));
+  };
+
   return (
     <>
       {/* login PopUp */}
@@ -52,7 +57,12 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
       <div className="navbar_container">
         <div className="navbar_content">
           <div className="navbar_search_input_container">
-            <input type="text" />
+            <input
+              type="text"
+              onChange={(e) => {
+                setSearchInp(e);
+              }}
+            />
           </div>
           <div className="navbar_user_info_container">
             <div className="user-info">

@@ -70,16 +70,11 @@ export default function Categories() {
   useEffect(() => {
     getFakeData();
     getFakeCategories();
-    dispatch(fetchProductData());
+    dispatch(fetchProductData({}));
   }, []);
 
   useEffect(() => {
-    setProducts(
-      mProducts.filter((elm: any, idx) => {
-        return elm?.category == category;
-      })
-    );
-    console.log(products, mProducts);
+    dispatch(fetchProductData({ filter: { "category.name": category } }));
   }, [category]);
 
   return (

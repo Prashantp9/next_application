@@ -5,7 +5,7 @@ interface Props {
 export default function ProductCard({ elm, idx }: Props) {
   return (
     <>
-      <div className="flex flex-col p-3 bg-stone-900 rounded-md cursor-pointer w-72 ">
+      <div className="flex flex-col p-2 bg-stone-900 rounded-md cursor-pointer w-72 max-h-80">
         <div className="w-full h-52 mb-3">
           <img
             className="object-cover h-full w-full rounded-md"

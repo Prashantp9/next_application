@@ -1,5 +1,5 @@
 import { BASE_URL, Type } from "@/app/constants/constants";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 
@@ -8,6 +8,7 @@ interface initialState {
   isError: boolean;
   errorData: any;
   products: {}[];
+  searchInput: string;
 }
 
 const initialState: initialState = {
@@ -15,13 +16,14 @@ const initialState: initialState = {
   isError: false,
   errorData: {},
   products: [],
+  searchInput: "",
 };
 
 export const fetchProductData = createAsyncThunk(
   "/public/products",
-  async () => {
+  async (data: any) => {
     try {
-      const response = await axios.get(`${BASE_URL}/public/products`);
+      const response = await axios.post(`${BASE_URL}/public/products`, data);
       return response.data;
     } catch (error: any) {
       return error.data;
@@ -29,10 +31,21 @@ export const fetchProductData = createAsyncThunk(
   }
 );
 
+type SearchInput = {
+  searchInput: string;
+};
+
 export const productState = createSlice({
   name: "productState",
   initialState: initialState,
-  reducers: {},
+  reducers: {
+    setSearchInput: (
+      state: initialState,
+      { payload }: PayloadAction<SearchInput>
+    ) => {
+      state.searchInput = payload.searchInput;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchProductData.pending, (state, action) => {
@@ -65,3 +78,4 @@ export const productState = createSlice({
 });
 
 export default productState.reducer;
+export const { setSearchInput } = productState.actions;
