@@ -20,15 +20,22 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
 
+import ProductCard from "./categories/ProductCard";
+import { useSelector } from "react-redux";
+
 export default function Home() {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const product = [
-    "https://images.unsplash.com/photo-1645655892437-c5149679d223?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1632&q=80",
-    "https://images.unsplash.com/photo-1674574124340-c00cc2dae99c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    "https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
+    "https://images.unsplash.com/photo-1590845947376-2638caa89309?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
   ];
+  const gProduct: any[] = useSelector(
+    (state: any) => state.rootReducer.productState.products
+  );
   return (
-    <>
+    <div className="flex flex-col w-full overflow-y-scroll h-full">
       <div className="flex  w-full justify-center p-6">
-        <div className="shadow-lg shadow-gray-700/50 ">
+        <div>
           <Swiper
             spaceBetween={30}
             centeredSlides={true}
@@ -37,7 +44,7 @@ export default function Home() {
               delay: 4000,
               disableOnInteraction: true,
             }}
-            // thumbs={{ swiper: thumbsSwiper }}
+            thumbs={{ swiper: thumbsSwiper }}
             pagination={{
               clickable: true,
             }}
@@ -74,6 +81,46 @@ export default function Home() {
           </Swiper>
         </div>
       </div>
-    </>
+      <div className="flex align-center w-full px-16 justify-between">
+        <p className="text-gray-400 text-base font-semibold ">Trending Now !</p>
+        <div></div>
+      </div>
+      {/* trending slides */}
+      <div
+        className="flex justify-center self-center"
+        style={{ width: "80vw" }}
+      >
+        <div className="flex justify-center w-full">
+          <Swiper
+            spaceBetween={30}
+            centeredSlides={true}
+            slidesPerView={5}
+            autoplay={{
+              delay: 4000,
+              disableOnInteraction: true,
+            }}
+            modules={[FreeMode, Pagination, Thumbs, Navigation]}
+            style={{
+              padding: "1rem 0rem",
+            }}
+          >
+            {gProduct.map((elm: any, idx: number) => (
+              <SwiperSlide className="mx-3">
+                {" "}
+                <ProductCard elm={elm} idx={idx} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      </div>
+    </div>
   );
 }
+
+// {gProduct.map((elm: any, idx: number) => {
+//   return (
+//     <SwiperSlide>
+
+//     </SwiperSlide>
+//   );
+// })}
