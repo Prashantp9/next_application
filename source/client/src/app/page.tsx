@@ -116,11 +116,3 @@ export default function Home() {
     </div>
   );
 }
-
-// {gProduct.map((elm: any, idx: number) => {
-//   return (
-//     <SwiperSlide>
-
-//     </SwiperSlide>
-//   );
-// })}
