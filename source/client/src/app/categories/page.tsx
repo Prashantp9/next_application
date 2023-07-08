@@ -74,7 +74,9 @@ export default function Categories() {
   }, []);
 
   useEffect(() => {
-    dispatch(fetchProductData({ filter: { "category.name": category } }));
+    if (category) {
+      dispatch(fetchProductData({ filter: { "category.name": category } }));
+    }
   }, [category]);
 
   return (
