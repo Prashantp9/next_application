@@ -52,13 +52,14 @@ export default function Home() {
             // zoom={true}
             // lazy={true}
             modules={[Autoplay, Pagination, Navigation, Zoom, Thumbs]}
-            style={{
-              width: "80rem",
-              height: "30rem",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
+            // style={{
+            //   width: "80rem",
+            //   height: "30rem",
+            //   display: "flex",
+            //   justifyContent: "center",
+            //   alignItems: "center",
+            // }}
+            className="w-[90vw] h-[15rem] md:h-[25rem] sm:w-[33rem] md:w-[45rem] lg:w-[60rem] xl:w-[80rem]"
           >
             {product.map((data: any) => {
               return (
@@ -81,7 +82,7 @@ export default function Home() {
           </Swiper>
         </div>
       </div>
-      <div className="flex align-center w-full px-16 justify-between">
+      <div className="flex align-center w-full md:px-16 px-5 justify-between">
         <p className="text-gray-400 text-base font-semibold ">Trending Now !</p>
         <div></div>
       </div>
