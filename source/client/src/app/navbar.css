@@ -213,3 +213,20 @@
   padding: 5rem 3rem;
   border-radius: 5px;
 }
+
+@media screen and (max-width: 640px) {
+}
+
+@media screen and (max-width: 1024px) {
+}
+@media screen and (max-width: 768px) {
+  .user-login-container {
+    display: none;
+  }
+  .notify {
+    display: none;
+  }
+  .navbar_user_info_container {
+    margin-left: 1rem;
+  }
+}

@@ -87,31 +87,29 @@ export default function Home() {
         <div></div>
       </div>
       {/* trending slides */}
-      <div
-        className="flex justify-center self-center"
-        style={{ width: "80vw" }}
-      >
-        <div className="flex justify-center w-full">
-          <Swiper
-            spaceBetween={30}
-            centeredSlides={true}
-            slidesPerView={5}
-            autoplay={{
-              delay: 4000,
-              disableOnInteraction: true,
-            }}
-            modules={[FreeMode, Pagination, Thumbs, Navigation]}
-            style={{
-              padding: "1rem 0rem",
-            }}
-          >
-            {gProduct.map((elm: any, idx: number) => (
-              <SwiperSlide className="mx-3">
-                {" "}
-                <ProductCard elm={elm} idx={idx} />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+      <div className="flex justify-center self-center w-[90%]">
+        <div className="grid justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          {gProduct.slice(0, 8).map((elm: any, idx: number) => (
+            <div className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md">
+              <div className="w-full h-full min-h-48 max-h-48">
+                <img
+                  src={elm.image}
+                  className="w-full h-full object-cover"
+                  alt=""
+                />
+              </div>
+
+              <p className="text-secondary-700 text-xs pt-2 h-16">
+                {elm?.description?.slice(0, 80)}
+              </p>
+
+              <div className="flex justify-between w-full h-10 align-center">
+                <p className="flex items-center text-gray-200 text-sm font-semibold md:text-base">
+                  {"$" + elm?.price}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>
