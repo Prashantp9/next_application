@@ -1,7 +1,7 @@
 :root {
   --hori-height: 100%;
-  --hori-width: 85%;
-  --sidebar-width: 15%;
+  --hori-width: 100%;
+  --sidebar-width: 15rem;
   --sidebar-height: 100%;
   --layout-border: 1px solid #646464;
   --button-bg: #353340;
@@ -14,7 +14,20 @@
   height: 100vh;
 }
 .applayout_sidebar_container {
-  width: var(--sidebar-width);
+  display: none;
+  /* width: var(--sidebar-width);
+  height: var(--sidebar-height);
+  box-shadow: 15px 0px 10px -15px #111;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform ease-out 200ms;
+  transition: -webkit-transform ease-out 200ms;
+  transition: transform ease-out 200ms;
+  transition: transform ease-out 200ms, -webkit-transform ease-out 200ms; */
+}
+
+.applayout_sidebar_container_active {
+  width: 15rem;
   height: var(--sidebar-height);
   box-shadow: 15px 0px 10px -15px #111;
   -webkit-transform: translate3d(0, 0, 0);
@@ -34,10 +47,36 @@
   transition: transform ease-out 200ms;
   transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
 }
+
+.applayout_hori_container_active {
+  width: calc(100% - 15rem);
+  height: var(--hori-height);
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: -webkit-transform ease-out 200ms;
+  transition: -webkit-transform ease-out 200ms;
+  transition: transform ease-out 200ms;
+  transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+}
+
 .app_navbar_container {
   height: 7%;
   box-shadow: 0px 15px 10px -15px #111;
 }
 .applayout_children_container {
   height: 90%;
+}
+
+@media only screen and (max-width: 1280px) {
+  .applayout_hori_container_active {
+    width: 100vw;
+  }
+  .applayout_sidebar_container_active {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    background: rgb(0, 0, 0, 0.9);
+    z-index: 10;
+  }
 }

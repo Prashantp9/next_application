@@ -27,17 +27,20 @@ export default function RootLayout({
         <ReduxProvider>
           <div className="applayout_container">
             <div
-              className="applayout_sidebar_container"
-              style={{
-                width: sidebar ? "15%" : "0%",
-                display: !sidebar ? "none" : "block",
-              }}
+              className={`${
+                sidebar
+                  ? "applayout_sidebar_container_active"
+                  : "applayout_sidebar_container"
+              }`}
             >
-              <Sidebar />
+              <Sidebar setSidebar={() => SetSidebar(!sidebar)} />
             </div>
             <div
-              className="applayout_hori_container"
-              style={{ width: sidebar ? "85%" : "100%" }}
+              className={`${
+                sidebar
+                  ? "applayout_hori_container_active"
+                  : "applayout_hori_container"
+              }`}
             >
               <div className="app_navbar_container">
                 <Navbar
