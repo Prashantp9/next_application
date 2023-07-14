@@ -215,6 +215,9 @@
 }
 
 @media screen and (max-width: 640px) {
+  .user-name {
+    display: none;
+  }
 }
 
 @media screen and (max-width: 1024px) {

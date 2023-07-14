@@ -80,7 +80,7 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
                   {isLogout && (
                     <p
                       onClick={() => userLogout()}
-                      className="logout-container absolute top-10 bg-gradient-to-b from-green-400 to-blue-400"
+                      className="logout-container absolute top-10 bg-gradient-to-b from-green-400 to-blue-400 z-10"
                     >
                       Logout
                     </p>
