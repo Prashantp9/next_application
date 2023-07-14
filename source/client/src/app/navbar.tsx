@@ -66,11 +66,14 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
           </div>
           <div className="navbar_user_info_container">
             <div className="user-info">
-              <img
-                className="user-img"
-                src="https://avatars.githubusercontent.com/u/100432036?s=400&u=b2d8f9650957f62e9147d0e724867251b2b580f6&v=4"
-                alt=""
-              />
+              <div className="w-[2rem] h-[2rem] relative">
+                <img
+                  className="w-full h-full rounded-2xl"
+                  src="https://avatars.githubusercontent.com/u/100432036?s=400&u=b2d8f9650957f62e9147d0e724867251b2b580f6&v=4"
+                  alt=""
+                />
+                <div className="absolute z-10 h-56 w-44 top-11 right-0"></div>
+              </div>
 
               {userLogin ? (
                 <div
