@@ -75,7 +75,7 @@ export default function Login() {
             handleLogin(e);
           }}
         >
-          <div className="login-container flex justify-center align-center">
+          <div className="login-container flex justify-center align-center ">
             <section className="flex align-center">
               <div className="container">
                 <div className="flex flex-wrap items-center justify-center lg:justify-between">
