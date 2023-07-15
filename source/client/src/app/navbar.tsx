@@ -10,6 +10,7 @@ import {
 
 import ApplicationAlert from "./components/alert";
 import Login from "./login";
+import ProfileMenu from "./ProfileMenu";
 import { setLogin } from "./redux/features/applicationStates";
 import { setSearchInput } from "./redux/features/productsSlice";
 import { useDispatch } from "react-redux";
@@ -21,6 +22,7 @@ interface Props {
 
 export default function Navbar({ isSidebar, setSidebar }: Props) {
   const [isLogout, setIsLogout] = useState(false);
+  const [isProfile, setProfile] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const handleLogin = () => dispatch(setLogin(""));
   const userLogin = useAppSelector(
@@ -68,11 +70,20 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
             <div className="user-info">
               <div className="w-[2rem] h-[2rem] relative">
                 <img
-                  className="w-full h-full rounded-2xl"
+                  onClick={() => setProfile(!isProfile)}
+                  className="w-full h-full rounded-2xl cursor-pointer"
                   src="https://avatars.githubusercontent.com/u/100432036?s=400&u=b2d8f9650957f62e9147d0e724867251b2b580f6&v=4"
                   alt=""
                 />
-                <div className="absolute z-10 h-56 w-44 top-11 right-0"></div>
+                {isProfile && <ProfileMenu />}
+                {isProfile && (
+                  <div
+                    className="fixed top-0 bottom-0 right-0 left-0 backdrop-blur-sm bg-black/10 z-10"
+                    onClick={(event) =>
+                      event.currentTarget === event.target && setProfile(false)
+                    }
+                  ></div>
+                )}
               </div>
 
               {userLogin ? (
