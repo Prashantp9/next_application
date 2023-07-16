@@ -75,7 +75,9 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
                   src="https://avatars.githubusercontent.com/u/100432036?s=400&u=b2d8f9650957f62e9147d0e724867251b2b580f6&v=4"
                   alt=""
                 />
-                {isProfile && <ProfileMenu />}
+                {isProfile && (
+                  <ProfileMenu onclick={() => setProfile(!isProfile)} />
+                )}
                 {isProfile && (
                   <div
                     className="fixed top-0 bottom-0 right-0 left-0 backdrop-blur-sm bg-black/10 z-10"

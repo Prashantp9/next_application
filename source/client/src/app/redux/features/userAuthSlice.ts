@@ -174,12 +174,7 @@ export const auth = createSlice({
             break;
 
           default:
-            (state.value.isError = true),
-              (state.value.errorData = {
-                message: payload.message,
-                type: payload.type,
-                errors: payload.errors,
-              });
+            state.value.isLogin = false;
         }
       })
       .addCase(userAuthByCookie.rejected, (state, { payload }) => {

@@ -5,7 +5,11 @@ import { setLogin } from "./redux/features/applicationStates";
 import { useDispatch } from "react-redux";
 import { userLogoutThunk } from "./redux/features/userAuthSlice";
 
-export default function ProfileMenu() {
+interface Props {
+  onclick: () => void;
+}
+
+export default function ProfileMenu({ onclick }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const userLogin = useAppSelector(
     (state) => state.rootReducer.authReducer.value.isLogin
@@ -33,7 +37,10 @@ export default function ProfileMenu() {
             ></path>
           </svg>
           <p
-            onClick={() => !userLogin && handleLogin()}
+            onClick={() => {
+              !userLogin && handleLogin();
+              onclick();
+            }}
             className="text-base font-medium w-full pl-3"
           >
             {userLogin ? "profile" : "Login/sign up"}
@@ -143,7 +150,10 @@ c10,4.6,19.8,7.1,30.8,4c9.3-2.6,19.3-9.7,23.9-18.4c4.9-9.3,7.4-20.5,4-30.8C895.5
             <path d="M17 14c-.6 0-1 .4-1 1v1c0 .6-.4 1-1 1h-1V8.4c0-1.3-.8-2.4-1.9-2.8L10.5 5H15c.6 0 1 .4 1 1v1c0 .6.4 1 1 1s1-.4 1-1V6c0-1.7-1.3-3-3-3H5c-.1 0-.2 0-.3.1-.1 0-.2.1-.2.1l-.1.1c-.1 0-.2.1-.2.2v.1c-.1 0-.2.1-.2.2V18c0 .4.3.8.6.9l6.6 2.5c.2.1.5.1.7.1.4 0 .8-.1 1.1-.4.5-.4.9-1 .9-1.6V19h1c1.7 0 3-1.3 3-3v-1c.1-.5-.3-1-.9-1zM6 17.3V5.4l5.3 2c.4.2.7.6.7 1v11.1l-6-2.2z"></path>
           </svg>
           <p
-            onClick={() => userLogout()}
+            onClick={() => {
+              userLogout();
+              onclick();
+            }}
             className="text-base font-medium w-full pl-3"
           >
             Log Out

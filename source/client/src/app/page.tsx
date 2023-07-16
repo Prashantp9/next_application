@@ -20,7 +20,7 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
 
-import ProductCard from "./categories/ProductCard";
+import ProductCard from "./[categories]/ProductCard";
 import { useSelector } from "react-redux";
 
 export default function Home() {
