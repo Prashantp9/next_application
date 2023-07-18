@@ -26,7 +26,7 @@ export default function ProductPage() {
                   <div className="grid grid-cols-5 content-center gap-2">
                     {[...Array(5)].map(() => (
                       <>
-                        <div>
+                        <div className="cursor-pointer">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             id="star"
