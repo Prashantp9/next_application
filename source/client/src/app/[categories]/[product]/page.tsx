@@ -1,9 +1,9 @@
 export default function ProductPage() {
   return (
-    <>
-      <div className="w-full h-[100vh] overflow-y-scroll">
+    <div className="h-[100vh] overflow-y-scroll">
+      <div className="w-full h-[80rem] sm:h-[60rem]">
         <div className="h-full p-6 grid grid-cols-4 grid-rows-5 gap-3">
-          <div className="rounded-lg col-span-4 row-span-2">
+          <div className="rounded-lg col-span-4 row-span-1 sm:row-span-2">
             <img
               className="rounded-lg object-cover  w-full h-full"
               src={
@@ -55,6 +55,6 @@ export default function ProductPage() {
           <div className="col-span-4 row-span-2">3</div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
