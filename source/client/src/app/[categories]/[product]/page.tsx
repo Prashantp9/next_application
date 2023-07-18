@@ -1,8 +1,20 @@
+"use client";
+
+import { useState } from "react";
+
 export default function ProductPage() {
+  const [productQuantity, setProductQuantity] = useState(0);
+
+  const decreaseQuantity: () => void = () => {
+    if (productQuantity > 0) {
+      setProductQuantity(productQuantity - 1);
+    }
+  };
+
   return (
     <div className="h-[100vh] overflow-y-scroll">
       <div className="w-full h-[80rem] sm:h-[60rem]">
-        <div className="h-full p-6 grid grid-cols-4 grid-rows-5 gap-3">
+        <div className="h-full p-4 grid grid-cols-4 grid-rows-5 gap-3">
           <div className="rounded-lg col-span-4 row-span-1 sm:row-span-2">
             <img
               className="rounded-lg object-cover  w-full h-full"
@@ -50,6 +62,33 @@ export default function ProductPage() {
                 odio ratione incidunt? Eligendi ea saepe nesciunt nisi, natus
                 illo. Asperiores esse, velit doloribus animi a neque et!
               </p>
+              <div className="w-full my-4 flex flex-col gap-1 md:flex-row items-center justify-between">
+                <div className="w-full grid grid-cols-4 min-h-[3rem] md:max-w-[30%] h-[2rem]">
+                  <button
+                    onClick={() => setProductQuantity(productQuantity + 1)}
+                    className="rounded-lg hover:scale-105 bg-gray-900 text-gray-100  hover:text-gray-400 shadow hover:shadow-lg"
+                  >
+                    +
+                  </button>
+                  <div className="flex text-base justify-center items-center font-semibold text-sky-100 col-span-2">
+                    {!productQuantity ? "Quantity" : productQuantity}
+                  </div>
+                  <button
+                    onClick={() => decreaseQuantity()}
+                    className="rounded-lg hover:scale-105 bg-gray-900 text-gray-100 hover:text-gray-400 shadow hover:shadow-lg "
+                  >
+                    -
+                  </button>
+                </div>
+                <div className="w-full flex flex-col gap-2 my-2 sm:flex-row sm:gap-10 md:gap-8 md:max-w-[50%]">
+                  <button className="w-full py-4 text-base border-2 hover:scale-105 border-gray-500 text-sky-100 text-center rounded-lg">
+                    Add to cart
+                  </button>
+                  <button className="w-full py-4 text-base hover:scale-105 border-2  border-gray-500 h-full text-sky-100 text-center rounded-lg">
+                    Whishlist
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
           <div className="col-span-4 row-span-2">3</div>
