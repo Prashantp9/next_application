@@ -112,7 +112,9 @@ export default function Categories() {
                   alt=""
                 />
               </div>
-
+              <p className="flex items-center text-gray-200 text-sm font-semibold md:text-base pt-4 lg:font-medium">
+                {"$" + elm?.title.slice(0, 45) + `...`}
+              </p>
               <p className="text-secondary-700 text-xs pt-2 h-16">
                 {elm?.description?.slice(0, 80)}
               </p>
