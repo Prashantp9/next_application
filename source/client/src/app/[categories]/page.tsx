@@ -4,6 +4,7 @@ import { AppDispatch, useAppSelector } from "../redux/store";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
+import Link from "next/link";
 import ProductCard from "./ProductCard";
 import { fetchProductData } from "../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
@@ -100,7 +101,10 @@ export default function Categories() {
       <div className="flex justify-center w-full overflow-y-scroll h-[80vh]">
         <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {gProduct?.map((elm: any, idx: number) => (
-            <div className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md">
+            <Link
+              href={"/category/product"}
+              className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
+            >
               <div className="w-full h-full min-h-48 max-h-48">
                 <img
                   src={elm.image}
@@ -145,7 +149,7 @@ export default function Categories() {
                   </svg>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
