@@ -5,7 +5,7 @@
 import "swiper/css";
 import "swiper/css/pagination";
 
-import { Navigation, Pagination, Scrollbar, Thumbs } from "swiper/modules";
+import { EffectCoverflow, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -115,10 +115,20 @@ export default function ProductPage() {
             </p>
             <div className="w-full h-full py-4">
               <Swiper
-                className="w-full grid grid-cols-3 grid-rows-1 h-[20rem]"
-                spaceBetween={20}
+                className="w-full  h-[20rem]"
+                effect={"coverflow"}
+                grabCursor={true}
+                centeredSlides={true}
+                coverflowEffect={{
+                  rotate: 50,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 1,
+                  slideShadows: true,
+                }}
+                spaceBetween={5}
                 slidesPerView={2}
-                modules={[Pagination]}
+                modules={[Pagination, EffectCoverflow]}
                 pagination={{ clickable: true }}
                 onSlideChange={() => console.log("slide change")}
                 breakpoints={{
@@ -136,12 +146,12 @@ export default function ProductPage() {
                   <SwiperSlide>
                     <Link
                       href={"/category/product"}
-                      className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
+                      className="w-full h-full flex flex-col p-2 bg-zinc-800 rounded-md"
                     >
                       <div className="w-full h-full min-h-48 max-h-48">
                         <img
                           src={elm.image}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-cover rounded-md"
                           alt=""
                         />
                       </div>
