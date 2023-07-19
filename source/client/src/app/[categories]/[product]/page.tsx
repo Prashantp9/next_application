@@ -127,14 +127,15 @@ export default function ProductPage() {
                   slideShadows: true,
                 }}
                 spaceBetween={5}
-                slidesPerView={2}
-                modules={[Pagination, EffectCoverflow]}
-                pagination={{ clickable: true }}
+                slidesPerView={1}
+                modules={[EffectCoverflow]}
                 onSlideChange={() => console.log("slide change")}
                 breakpoints={{
+                  400: {
+                    slidesPerView: 2,
+                  },
                   640: {
                     slidesPerView: 3,
-                    spaceBetween: 30,
                   },
                   1024: {
                     slidesPerView: 4,
