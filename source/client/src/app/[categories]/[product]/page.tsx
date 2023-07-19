@@ -12,10 +12,10 @@ export default function ProductPage() {
   };
 
   return (
-    <div className="h-[100vh] overflow-y-scroll">
-      <div className="w-full h-[80rem] sm:h-[60rem]">
+    <div className="flex justify-center h-[100vh] overflow-y-scroll">
+      <div className="w-full h-[80rem] sm:h-[60rem] xl:max-w-[85%]">
         <div className="h-full p-4 grid grid-cols-4 grid-rows-5 gap-3">
-          <div className="rounded-lg col-span-4 sm:row-span-2 lg:col-span-2 lg:p-6 lg:row-span-3 xl:row-span-2">
+          <div className="rounded-lg col-span-4 sm:row-span-2 lg:col-span-2 lg:p-6 lg:row-span-3">
             <img
               className="rounded-lg object-cover  w-full h-full"
               src={
@@ -56,7 +56,7 @@ export default function ProductPage() {
                 </div>
               </div>
               <p className="font-bold text-base text-slate-200 mt-3">$ 500</p>
-              <p className="text-xs font-semibold py-2 lg:text-base">
+              <p className="text-xs font-semibold py-2 lg:text-sm">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit.
                 Excepturi aspernatur numquam hic voluptatum maiores, sit nisi in
                 odio ratione incidunt? Eligendi ea saepe nesciunt nisi, natus
@@ -91,7 +91,11 @@ export default function ProductPage() {
               </div>
             </div>
           </div>
-          <div className="col-span-4 row-span-2">3</div>
+          <div className="flex flex-col col-span-4 row-span-2">
+            <p className="font-bold text-bas border-b-2 pb-1 border-gray-400">
+              Suggested Products !
+            </p>
+          </div>
         </div>
       </div>
     </div>
