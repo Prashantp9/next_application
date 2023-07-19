@@ -115,7 +115,7 @@ export default function ProductPage() {
             </p>
             <div className="w-full h-full py-4">
               <Swiper
-                className="w-full  h-[19rem]"
+                className="w-full  h-[19rem] lg:h-[25rem]"
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
@@ -139,7 +139,8 @@ export default function ProductPage() {
                   },
                   1024: {
                     slidesPerView: 4,
-                    spaceBetween: 40,
+                    effect: "slide",
+                    spaceBetween: "20",
                   },
                 }}
               >
@@ -149,7 +150,7 @@ export default function ProductPage() {
                       href={"/category/product"}
                       className="w-full h-full flex flex-col p-2 bg-zinc-800 rounded-md"
                     >
-                      <div className="w-full h-full min-h-48 max-h-48 p-1 sm:p-0">
+                      <div className="w-full h-full min-h-48 max-h-48 p-1 sm:p-0 lg:min-h-60 lg:max-h-60 lg:p-1">
                         <img
                           src={elm.image}
                           className="w-full h-full object-cover rounded-md"
