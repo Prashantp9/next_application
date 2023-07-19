@@ -115,7 +115,7 @@ export default function ProductPage() {
             </p>
             <div className="w-full h-full py-4">
               <Swiper
-                className="w-full  h-[20rem]"
+                className="w-full  h-[19rem]"
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
@@ -131,7 +131,7 @@ export default function ProductPage() {
                 modules={[EffectCoverflow]}
                 onSlideChange={() => console.log("slide change")}
                 breakpoints={{
-                  400: {
+                  450: {
                     slidesPerView: 2,
                   },
                   640: {
@@ -149,7 +149,7 @@ export default function ProductPage() {
                       href={"/category/product"}
                       className="w-full h-full flex flex-col p-2 bg-zinc-800 rounded-md"
                     >
-                      <div className="w-full h-full min-h-48 max-h-48">
+                      <div className="w-full h-full min-h-48 max-h-48 p-1 sm:p-0">
                         <img
                           src={elm.image}
                           className="w-full h-full object-cover rounded-md"
