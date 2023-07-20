@@ -157,9 +157,11 @@ export default function ProductPage() {
                           alt=""
                         />
                       </div>
-
+                      <p className="flex items-center text-gray-200 text-sm font-semibold md:text-base">
+                        {elm?.title.slice(0, 20)}
+                      </p>
                       <p className="text-secondary-700 text-xs pt-2 h-16">
-                        {elm?.description?.slice(0, 80)}
+                        {elm?.description?.slice(0, 40)}
                       </p>
 
                       <div className="flex justify-between w-full h-10 align-center">
