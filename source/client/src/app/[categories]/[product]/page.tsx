@@ -31,7 +31,7 @@ export default function ProductPage() {
 
   return (
     <div className="flex justify-center h-[100vh] overflow-y-scroll">
-      <div className="w-full h-[80rem] sm:h-[60rem] sm:pb-10 xl:max-w-[85%]">
+      <div className="w-full h-[80rem] sm:h-[60rem] sm:pb-10 xl:max-w-[85%] md:h-[83rem] lg:h-[82rem]">
         <div className="h-full p-4 grid grid-cols-4 grid-rows-5 gap-3">
           <div className="rounded-lg col-span-4 sm:row-span-2 lg:col-span-2 lg:p-6 lg:row-span-3">
             <img
@@ -115,7 +115,7 @@ export default function ProductPage() {
             </p>
             <div className="w-full h-full py-4">
               <Swiper
-                className="w-full  h-[19rem] lg:h-[25rem]"
+                className="w-full  h-[19rem] lg:h-[23rem]"
                 effect={"coverflow"}
                 grabCursor={true}
                 centeredSlides={true}
@@ -139,6 +139,11 @@ export default function ProductPage() {
                   },
                   1024: {
                     slidesPerView: 4,
+                    effect: "slide",
+                    spaceBetween: "20",
+                  },
+                  1280: {
+                    slidesPerView: 5,
                     effect: "slide",
                     spaceBetween: "20",
                   },
