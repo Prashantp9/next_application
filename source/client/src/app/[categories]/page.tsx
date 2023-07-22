@@ -118,7 +118,7 @@ export default function Categories() {
         </div>
       </div>
       <div className="flex justify-center w-full overflow-y-scroll h-[80vh]">
-        <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 lg:grid-rows-[auto_minmax(auto,1fr)] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {gProduct?.map((elm: any, idx: number) => (
             <Link
               href={"/category/product"}
