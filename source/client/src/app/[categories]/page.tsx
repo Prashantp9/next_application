@@ -82,12 +82,34 @@ export default function Categories() {
 
   return (
     <div className="p-3">
-      <h4 className="mb-2 mt-0 text-3xl font-medium leading-tight text-primary text-gray-400 mb-5">
-        Categories
+      <h4 className="mb-2 mt-0 font-medium leading-tight text-xl text-gray-400 ">
+        filter
       </h4>
 
       <div className="flex flex-wrap content-around w-full gap-2 border-b-4  border-slate-400 pb-7">
-        {categories?.map((elm: any, idx: number) => (
+        <div className="flex flex-col  gap-2">
+          <label
+            htmlFor="categories"
+            className="text-base font-semibold text-slate-300 pl-1"
+          >
+            Categories
+          </label>
+          <select
+            name="categories"
+            id="categories"
+            className="px-4  rounded-md bg-transparent border-2 border-slate-600 focus:bg-neutral-900 cursor-pointer py-2"
+          >
+            {categories?.map((elm: any, idx: number) => (
+              <option
+                className="text-base  bg-neutral-900 cursor-pointer"
+                value={elm}
+              >
+                {elm}
+              </option>
+            ))}
+          </select>
+        </div>
+        {/* {categories?.map((elm: any, idx: number) => (
           <div
             onClick={() => changeSearchParams("category", elm)}
             className={`cursor-pointer p-5 shadow-lg rounded-md hover:bg-neutral-800  ${
@@ -96,7 +118,7 @@ export default function Categories() {
           >
             <p className="text-gray-400 font-semibold">{elm}</p>
           </div>
-        ))}
+        ))} */}
       </div>
       <div className="flex justify-center w-full overflow-y-scroll h-[80vh]">
         <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
