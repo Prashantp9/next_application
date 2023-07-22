@@ -7,7 +7,7 @@
 
 # testing
 /coverage
-
+ignoreConstant.tsx
 # next.js
 /.next/
 /out/
