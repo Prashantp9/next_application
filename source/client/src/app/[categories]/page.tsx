@@ -51,7 +51,8 @@ export default function Categories() {
   );
 
   const changeSearchParams = (paramName: string, paramValue: string) => {
-    router.push(pathname + "?" + createQueryString(paramName, paramValue));
+    // router.push(pathname + "?" + createQueryString(paramName, paramValue));
+    router.push(paramValue + "?" + createQueryString(paramName, paramValue));
   };
   //   =======================================
 
