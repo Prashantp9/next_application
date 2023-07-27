@@ -13,11 +13,15 @@ import {
   Pagination,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  fetchProduct,
+  fetchProductData,
+} from "@/app/redux/features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { AppDispatch } from "@/app/redux/store";
 import Link from "next/link";
-import { fetchProductData } from "@/app/redux/features/productsSlice";
 import { string } from "yup";
 
 export default function ProductPage() {
@@ -25,7 +29,7 @@ export default function ProductPage() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   // React Hooks Declaration
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   // Redux States Declaration..
   const suggestedProduct: any[] = useSelector(
     (state: any) => state.rootReducer.productState.products
@@ -39,6 +43,10 @@ export default function ProductPage() {
     "--swiper-navigation-color": "#fff",
     "--swiper-pagination-color": "#fff",
   };
+
+  useEffect(() => {
+    dispatch(fetchProduct({ productId: "id" }));
+  }, []);
 
   return (
     <div className="flex justify-center h-screen overflow-y-scroll">

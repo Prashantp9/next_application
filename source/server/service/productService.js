@@ -29,8 +29,10 @@ const productService = {
       // ],
     });
 
-    console.log(val);
     return val;
+  },
+  getProductById: async (id) => {
+    return await Product.findById(id);
   },
 };
 export default productService;

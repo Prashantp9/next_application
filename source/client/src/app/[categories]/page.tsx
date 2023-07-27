@@ -51,8 +51,7 @@ export default function Categories() {
   );
 
   const changeSearchParams = (paramName: string, paramValue: string) => {
-    // router.push(pathname + "?" + createQueryString(paramName, paramValue));
-    router.push(paramValue + "?" + createQueryString(paramName, paramValue));
+    router.push(pathname + "?" + createQueryString(paramName, paramValue));
   };
   //   =======================================
 
@@ -122,7 +121,7 @@ export default function Categories() {
         <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 lg:grid-rows-[auto_minmax(auto,1fr)] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {gProduct?.map((elm: any, idx: number) => (
             <Link
-              href={"/category/product"}
+              href={`/${elm?.category?.name}/${elm._id}`}
               className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
             >
               <div className="w-full h-full min-h-48 max-h-48">

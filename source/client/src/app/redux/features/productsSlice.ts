@@ -31,6 +31,18 @@ export const fetchProductData = createAsyncThunk(
   }
 );
 
+export const fetchProduct = createAsyncThunk(
+  "/public/get_product",
+  async (data: any) => {
+    try {
+      const response = await axios.post(`${BASE_URL}/public/get_product`, data);
+      return response.data;
+    } catch (error: any) {
+      return error.data;
+    }
+  }
+);
+
 type SearchInput = {
   searchInput: string;
 };
@@ -71,6 +83,33 @@ export const productState = createSlice({
           (state.errorData = {
             type: "FAILURE",
             message: "SERVER ERRO",
+            errors: [],
+          });
+      })
+      // fetchProduct
+      .addCase(fetchProduct.pending, (state, action) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchProduct.fulfilled, (state, action) => {
+        state.isLoading = false;
+        switch (action.payload.type) {
+          case Type.SUCCESS:
+            break;
+          default:
+            (state.isError = true),
+              (state.errorData = {
+                message: action.payload.message,
+                type: action.payload.type,
+                errors: action.payload.errors,
+              });
+        }
+      })
+      .addCase(fetchProduct.rejected, (state, action) => {
+        (state.isLoading = false),
+          (state.isError = true),
+          (state.errorData = {
+            type: "FAILURE",
+            message: "SERVER ERROR",
             errors: [],
           });
       });
