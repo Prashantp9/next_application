@@ -1,5 +1,6 @@
 import { AppDispatch, useAppSelector } from "./redux/store";
 
+import Link from "next/link";
 import { profile } from "console";
 import { setLogin } from "./redux/features/applicationStates";
 import { useDispatch } from "react-redux";
@@ -13,6 +14,9 @@ export default function ProfileMenu({ onclick }: Props) {
   const dispatch = useDispatch<AppDispatch>();
   const userLogin = useAppSelector(
     (state) => state.rootReducer.authReducer.value.isLogin
+  );
+  const userId = useAppSelector(
+    (state) => state.rootReducer.authReducer.value.id
   );
 
   const userLogout = () => {
@@ -47,7 +51,11 @@ export default function ProfileMenu({ onclick }: Props) {
           </p>
         </div>
 
-        <div className="w-full flex justify-between gap-2 px-3">
+        <Link
+          href={`cart/${userId}`}
+          onClick={() => onclick()}
+          className="w-full flex justify-between gap-2 px-3"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 1024 1024"
@@ -64,7 +72,7 @@ export default function ProfileMenu({ onclick }: Props) {
             <path d="M941.5 252.5c-13.7 35.3-27.3 70.6-41 105.9-21.8 56.3-43.6 112.5-65.3 168.8-5 12.9-10 25.9-15 38.8 6.4-4.9 12.9-9.8 19.3-14.7H430.4c-18.8 0-37.8-.8-56.7 0h-.8c6.4 4.9 12.9 9.8 19.3 14.7-11.7-35.5-23.3-70.9-35-106.4-18.5-56.1-37-112.2-55.4-168.4-4.3-12.9-8.5-25.8-12.8-38.8-6.4 8.4-12.9 16.9-19.3 25.3H932.8c9 0 18 .2 26.9 0h1.2c10.5 0 20.5-9.2 20-20s-8.8-20-20-20H297.8c-9 0-18-.2-26.9 0h-1.2c-12.5 0-23.4 12.9-19.3 25.3 11.7 35.5 23.3 70.9 35 106.4 18.5 56.1 37 112.2 55.4 168.4 4.3 12.9 8.5 25.8 12.8 38.8 2.8 8.4 10.2 14.7 19.3 14.7H782c18.8 0 37.8.7 56.7 0h.8c9.5 0 16.1-6.4 19.3-14.7 13.7-35.3 27.3-70.6 41-105.9 21.8-56.3 43.6-112.5 65.3-168.8 5-12.9 10-25.9 15-38.8 3.8-9.8-4.2-22.4-14-24.6-11.5-2.6-20.6 3.5-24.6 14z"></path>
           </svg>
           <p className="text-base font-medium w-full pl-3">Cart</p>
-        </div>
+        </Link>
 
         <div className="w-full flex justify-between gap-2 px-3">
           <svg
