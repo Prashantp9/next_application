@@ -40,22 +40,20 @@ export default function ProductPage() {
     title: string;
     _id: string;
   };
-//  states of page
+  //  states of page
   const [productQuantity, setProductQuantity] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [currProduct, setCurrProduct] = useState<ProductType>(
     {} as ProductType
   );
-// Redux States Declaration..
-const suggestedProduct: any[] = useSelector(
-  (state: any) => state.rootReducer.productState.products
-);
-  
-// -----------------------------------
+  // Redux States Declaration..
+  const suggestedProduct: any[] = useSelector(
+    (state: any) => state.rootReducer.productState.products
+  );
+
+  // -----------------------------------
   const { categories, product } = params;
-  
-  
-  
+
   const decreaseQuantity: () => void = () => {
     if (productQuantity > 0) {
       setProductQuantity(productQuantity - 1);
@@ -168,10 +166,10 @@ const suggestedProduct: any[] = useSelector(
                   </button>
                 </div>
                 <div className="w-full flex flex-col gap-2 my-2 sm:flex-row sm:gap-10 md:gap-8 md:max-w-[50%] lg:max-w-full">
-                  <button className="w-full py-4 text-base border-2 hover:scale-105 border-gray-500 text-sky-100 text-center rounded-lg ">
+                  <button className="w-full py-4 text-base border-2  border-gray-500 text-sky-100 text-center rounded-lg lg:hover:scale-105">
                     Add to cart
                   </button>
-                  <button className="w-full py-4 text-base hover:scale-105 border-2  border-gray-500 h-full text-sky-100 text-center rounded-lg">
+                  <button className="w-full py-4 text-base border-2  border-gray-500 h-full text-sky-100 text-center rounded-lg lg:hover:scale-105">
                     Wishlist
                   </button>
                 </div>
@@ -182,7 +180,7 @@ const suggestedProduct: any[] = useSelector(
             <p className="font-bold text-bas border-b-2 pb-1 border-gray-400">
               Suggested Products !
             </p>
-            <div className="w-full p-4 pb-[8rem]">
+            <div className="w-full p-2 pb-[8rem]">
               <Swiper
                 className="w-full my-6"
                 effect={"coverflow"}
