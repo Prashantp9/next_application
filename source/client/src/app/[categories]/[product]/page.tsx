@@ -32,7 +32,7 @@ export default function ProductPage() {
   const dispatch = useDispatch<AppDispatch>();
   // types alias of page
   type ProductType = {
-    image: string | string[];
+    image: string[] | any;
     category: { name: string; cartId: string };
     description: string;
     price: number;
@@ -90,7 +90,7 @@ export default function ProductPage() {
               modules={[Pagination, Navigation, EffectFlip]}
               pagination
             >
-              {Array.isArray(currProduct.image) ? (
+              {currProduct.image?.length > 1 ? (
                 currProduct.image.map((elm: string, idx: number) => (
                   <SwiperSlide>
                     <img
@@ -103,8 +103,8 @@ export default function ProductPage() {
               ) : (
                 <SwiperSlide>
                   <img
-                    className="rounded-lg object-scale-down  w-full h-full"
-                    src={currProduct.image}
+                    className="rounded-lg object-scale-down w-full h-full"
+                    src={currProduct?.image}
                     alt="product image"
                   />
                 </SwiperSlide>
