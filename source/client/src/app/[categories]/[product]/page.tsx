@@ -178,7 +178,7 @@ export default function ProductPage() {
           </div>
           <div className="flex flex-col w-full h-[auto] col-span-4">
             <p className="font-bold text-bas border-b-2 pb-1 border-gray-400">
-              Suggested Products !
+              Recomended Products !
             </p>
             <div className="w-full p-2 pb-[8rem]">
               <Swiper
@@ -215,7 +215,7 @@ export default function ProductPage() {
                   },
                 }}
               >
-                {suggestedProduct.slice(0, 8).map((elm: any, idx: Number) => (
+                {suggestedProduct.map((elm: any, idx: Number) => (
                   <SwiperSlide>
                     <Link
                       href={`/${elm?.category?.name}/${elm._id}`}

@@ -20,7 +20,7 @@ const product = new mongoose.Schema({
     required: true,
   },
   image: {
-    type: String,
+    type: [String] || String,
   },
   location: {
     type: mongoose.Schema.Types.ObjectId,
