@@ -19,15 +19,35 @@ import {
 } from "@/app/redux/features/productsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 
 import { AppDispatch } from "@/app/redux/store";
+import Categories from "../page";
 import Link from "next/link";
 import { string } from "yup";
 
 export default function ProductPage() {
+  type ProductType = {
+    image: string | string[];
+    category: { name: string; cartId: string };
+    description: string;
+    price: number;
+    rating: { rate: number; count: number };
+    title: string;
+    _id: string;
+  };
+
   const [productQuantity, setProductQuantity] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [currProduct, setCurrProduct] = useState<ProductType>(
+    {} as ProductType
+  );
+  const router = useRouter();
+  const params = useParams();
 
+  console.log("currentProduct", currProduct);
+
+  const { categories, product } = params;
   // React Hooks Declaration
   const dispatch = useDispatch<AppDispatch>();
   // Redux States Declaration..
@@ -45,7 +65,12 @@ export default function ProductPage() {
   };
 
   useEffect(() => {
-    dispatch(fetchProduct({ productId: "id" }));
+    dispatch(
+      fetchProductData({ filter: { "category.name": categories } })
+    ).then((data) => console.log("data", data));
+    dispatch(fetchProduct({ productId: product })).then((data: any) => {
+      setCurrProduct(data?.payload?.data);
+    });
   }, []);
 
   return (
@@ -63,31 +88,32 @@ export default function ProductPage() {
               modules={[Pagination, Navigation, EffectFlip]}
               pagination
             >
-              <SwiperSlide>
-                <img
-                  className="rounded-lg object-cover  w-full h-full"
-                  src={
-                    "https://images.unsplash.com/photo-1582666251140-ea98398b1afd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
-                  }
-                  alt="product image"
-                />
-              </SwiperSlide>
-              <SwiperSlide>
-                <img
-                  className="rounded-lg object-cover  w-full h-full"
-                  src={
-                    "https://images.unsplash.com/photo-1592155931584-901ac15763e3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1475&q=80"
-                  }
-                  alt="product image"
-                />
-              </SwiperSlide>
+              {Array.isArray(currProduct.image) ? (
+                currProduct.image.map((elm: string, idx: number) => (
+                  <SwiperSlide>
+                    <img
+                      className="rounded-lg object-cover  w-full h-full"
+                      src={elm}
+                      alt="product image"
+                    />
+                  </SwiperSlide>
+                ))
+              ) : (
+                <SwiperSlide>
+                  <img
+                    className="rounded-lg object-scale-down  w-full h-full"
+                    src={currProduct.image}
+                    alt="product image"
+                  />
+                </SwiperSlide>
+              )}
             </Swiper>
           </div>
           <div className="col-span-4 row-span-2  lg:col-span-2 lg:p-6">
             <div className="flex flex-col">
               <div className="flex justify-between">
                 <p className="font-bold text-base text-slate-100 ">
-                  Ps 4 Controller
+                  {currProduct.title}
                 </p>
 
                 <div className="flex min-w-fit col-span-3 items-start gap-4">
@@ -116,21 +142,9 @@ export default function ProductPage() {
               </div>
               <p className="font-bold text-base text-slate-200 mt-3">$ 500</p>
               <p className="text-xs font-semibold py-2 lg:text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Excepturi aspernatur numquam hic voluptatum maiores, sit nisi in
-                odio ratione incidunt? Eligendi ea saepe nesciunt nisi, natus
-                illo. Asperiores esse, velit doloribus animi a neque et!
+                {currProduct.description}
               </p>
 
-              <p className="text-xs font-semibold py-2 lg:text-sm">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Excepturi aspernatur numquam hic voluptatum maiores, sit nisi in
-                odio ratione incidunt? Eligendi ea saepe nesciunt nisi, natus
-                illo. Asperiores esse, velit doloribus animi a neque et! Lorem
-                ipsum dolor sit amet consectetur adipisicing elit. Sequi odio
-                rem quis amet iure at voluptatem consectetur nihil molestiae
-                maiores nostrum, voluptatum nemo!
-              </p>
               <div className="w-full my-4 flex flex-col gap-1 md:flex-row items-center justify-between lg:flex-col lg:gap-4 lg:items-start">
                 <div className="w-full grid grid-cols-4 min-h-[3rem] md:max-w-[30%] h-[2rem] lg:min-w-[50%]">
                   <button

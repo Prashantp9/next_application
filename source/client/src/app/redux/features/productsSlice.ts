@@ -35,7 +35,10 @@ export const fetchProduct = createAsyncThunk(
   "/public/get_product",
   async (data: any) => {
     try {
+      console.log("inside redux");
+      console.log(data);
       const response = await axios.post(`${BASE_URL}/public/get_product`, data);
+      console.log(response);
       return response.data;
     } catch (error: any) {
       return error.data;
