@@ -24,6 +24,7 @@ import { useParams, useRouter } from "next/navigation";
 import { AppDispatch } from "@/app/redux/store";
 import Categories from "../page";
 import Link from "next/link";
+import { convertUrlToString } from "@/app/utils/formatingUtils";
 import { string } from "yup";
 
 export default function ProductPage() {
@@ -66,7 +67,9 @@ export default function ProductPage() {
 
   useEffect(() => {
     dispatch(
-      fetchProductData({ filter: { "category.name": categories } })
+      fetchProductData({
+        filter: { "category.name": convertUrlToString(categories) },
+      })
     ).then((data) => console.log("data", data));
     dispatch(fetchProduct({ productId: product })).then((data: any) => {
       setCurrProduct(data?.payload?.data);
@@ -216,7 +219,10 @@ export default function ProductPage() {
               >
                 {suggestedProduct.slice(0, 8).map((elm: any, idx: Number) => (
                   <SwiperSlide>
-                    <Link href={"/category/product"} className="w-full">
+                    <Link
+                      href={`/${elm?.category?.name}/${elm._id}`}
+                      className="w-full"
+                    >
                       <div className="bg-zinc-800 rounded-lg p-2">
                         <div className="max-[400px]:h-[14rem] h-[10rem] w-full">
                           <img

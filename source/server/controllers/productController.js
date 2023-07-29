@@ -5,6 +5,7 @@ const product = {
   fetchAll: async (req, res, next) => {
     try {
       const response = await productService.fetchAll(req.body.filter);
+      // console.log(response);
       if (response) {
         return res.status(200).json({
           type: responseType.SUCCESS,
