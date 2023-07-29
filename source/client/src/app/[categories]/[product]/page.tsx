@@ -22,12 +22,15 @@ import { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 
 import { AppDispatch } from "@/app/redux/store";
-import Categories from "../page";
 import Link from "next/link";
 import { convertUrlToString } from "@/app/utils/formatingUtils";
-import { string } from "yup";
 
 export default function ProductPage() {
+  // react hooks
+  const router = useRouter();
+  const params = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  // types alias of page
   type ProductType = {
     image: string | string[];
     category: { name: string; cartId: string };
@@ -37,24 +40,22 @@ export default function ProductPage() {
     title: string;
     _id: string;
   };
-
+//  states of page
   const [productQuantity, setProductQuantity] = useState(0);
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [currProduct, setCurrProduct] = useState<ProductType>(
     {} as ProductType
   );
-  const router = useRouter();
-  const params = useParams();
-
-  console.log("currentProduct", currProduct);
-
+// Redux States Declaration..
+const suggestedProduct: any[] = useSelector(
+  (state: any) => state.rootReducer.productState.products
+);
+  
+// -----------------------------------
   const { categories, product } = params;
-  // React Hooks Declaration
-  const dispatch = useDispatch<AppDispatch>();
-  // Redux States Declaration..
-  const suggestedProduct: any[] = useSelector(
-    (state: any) => state.rootReducer.productState.products
-  );
+  
+  
+  
   const decreaseQuantity: () => void = () => {
     if (productQuantity > 0) {
       setProductQuantity(productQuantity - 1);
@@ -70,7 +71,7 @@ export default function ProductPage() {
       fetchProductData({
         filter: { "category.name": convertUrlToString(categories) },
       })
-    ).then((data) => console.log("data", data));
+    );
     dispatch(fetchProduct({ productId: product })).then((data: any) => {
       setCurrProduct(data?.payload?.data);
     });
@@ -197,7 +198,6 @@ export default function ProductPage() {
                 spaceBetween={5}
                 slidesPerView={1}
                 modules={[EffectCoverflow]}
-                onSlideChange={() => console.log("slide change")}
                 breakpoints={{
                   450: {
                     slidesPerView: 2,
@@ -280,98 +280,4 @@ export default function ProductPage() {
       </div>
     </div>
   );
-}
-
-{
-  /* <Swiper
-className="w-full  h-[19rem] lg:h-[23rem]"
-effect={"coverflow"}
-grabCursor={true}
-centeredSlides={true}
-coverflowEffect={{
-  rotate: 50,
-  stretch: 0,
-  depth: 100,
-  modifier: 1,
-  slideShadows: true,
-}}
-spaceBetween={5}
-slidesPerView={1}
-modules={[EffectCoverflow]}
-onSlideChange={() => console.log("slide change")}
-breakpoints={{
-  450: {
-    slidesPerView: 2,
-  },
-  640: {
-    slidesPerView: 3,
-  },
-  1024: {
-    slidesPerView: 4,
-    effect: "slide",
-    spaceBetween: "20",
-  },
-  1280: {
-    slidesPerView: 5,
-    effect: "slide",
-    spaceBetween: "20",
-  },
-}}
->
-{suggestedProduct.slice(0, 8).map((elm: any, idx: Number) => (
-  <SwiperSlide>
-    <Link
-      href={"/category/product"}
-      className="w-full h-full flex flex-col p-2 bg-zinc-800 rounded-md"
-    >
-      <div className="w-full h-full min-h-48 max-h-48 p-1 sm:p-0 lg:min-h-60 lg:max-h-60 lg:p-1">
-        <img
-          src={elm.image}
-          className="w-full h-full object-cover rounded-md"
-          alt=""
-        />
-      </div>
-      <p className="flex items-center text-gray-200 text-sm font-semibold md:text-base">
-        {elm?.title.slice(0, 20)}
-      </p>
-      <p className="text-secondary-700 text-xs pt-2 h-16">
-        {elm?.description?.slice(0, 40)}
-      </p>
-
-      <div className="flex justify-between w-full h-10 align-center">
-        <p className="flex items-center text-gray-200 text-sm font-semibold md:text-base">
-          {"$" + elm?.price}
-        </p>
-        <div className="flex gap-3">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            id="like"
-            width="25"
-            height="25"
-            viewBox="0 0 29 29"
-          >
-            <path
-              fill="#ffff"
-              d="M14.5 25.892a.997.997 0 0 1-.707-.293l-9.546-9.546c-2.924-2.924-2.924-7.682 0-10.606 2.808-2.81 7.309-2.923 10.253-.332 2.942-2.588 7.443-2.479 10.253.332 2.924 2.924 2.924 7.683 0 10.606l-9.546 9.546a.997.997 0 0 1-.707.293zM9.551 5.252a5.486 5.486 0 0 0-3.89 1.608 5.505 5.505 0 0 0 0 7.778l8.839 8.839 8.839-8.839a5.505 5.505 0 0 0 0-7.778 5.505 5.505 0 0 0-7.778 0l-.354.354a.999.999 0 0 1-1.414 0l-.354-.354a5.481 5.481 0 0 0-3.888-1.608z"
-            />
-          </svg>
-
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="25"
-            height="25"
-            viewBox="0 0 512 500"
-            id="cart"
-          >
-            <path
-              fill="#ffff"
-              d="M169.6 377.6c-22.882 0-41.6 18.718-41.6 41.601 0 22.882 18.718 41.6 41.6 41.6s41.601-18.718 41.601-41.6c-.001-22.884-18.72-41.601-41.601-41.601zM48 51.2v41.6h41.6l74.883 151.682-31.308 50.954c-3.118 5.2-5.2 12.482-5.2 19.765 0 27.85 19.025 41.6 44.825 41.6H416v-40H177.893c-3.118 0-5.2-2.082-5.2-5.2 0-1.036 2.207-5.2 2.207-5.2l20.782-32.8h154.954c15.601 0 29.128-8.317 36.4-21.836l74.882-128.8c1.237-2.461 2.082-6.246 2.082-10.399 0-11.446-9.364-19.765-20.8-19.765H135.364L115.6 51.2H48zm326.399 326.4c-22.882 0-41.6 18.718-41.6 41.601 0 22.882 18.718 41.6 41.6 41.6S416 442.082 416 419.2c0-22.883-18.719-41.6-41.601-41.6z"
-            ></path>
-          </svg>
-        </div>
-      </div>
-    </Link>
-  </SwiperSlide>
-))}
-</Swiper> */
 }

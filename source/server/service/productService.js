@@ -2,7 +2,7 @@ import Product from "../Models/productModel.js";
 
 const productService = {
   fetchAll: async (data) => {
-    console.log(data);
+    // console.log(data);
     const filter = {};
     if (data) {
       for (const val in data) {
