@@ -34,7 +34,7 @@ export default function Home() {
   );
 
   return (
-    <div className="flex flex-col w-full h-full">
+    <div className="flex flex-col w-full h-full lg:overflow-y-scroll lg:h-[100vh]">
       <div className="flex  w-full justify-center p-6">
         <div>
           <Swiper
@@ -79,7 +79,7 @@ export default function Home() {
         <div></div>
       </div>
       {/* trending slides */}
-      <div className="flex flex-col items-center pb-8 w-full h-[100vh] overflow-y-scroll">
+      <div className="flex flex-col items-center pb-8 w-full h-[100vh] overflow-y-scroll lg:h-auto lg:overflow-visible lg:pb-20">
         <div className="flex justify-center self-center w-[90%]">
           <div className="grid justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {gProduct.slice(0, 8).map((elm: any, idx: number) => (
