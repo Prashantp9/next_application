@@ -26,6 +26,7 @@
   display: flex;
   width: 100%;
   max-width: 450px;
+  position: relative;
 }
 .navbar_search_input_container > input {
   width: 100%;

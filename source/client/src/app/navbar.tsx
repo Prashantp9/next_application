@@ -3,6 +3,10 @@ import "./navbar.css";
 import { AppDispatch, useAppSelector } from "./redux/store";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
+  fetchProductData,
+  setSearchInput,
+} from "./redux/features/productsSlice";
+import {
   setCustomAlert,
   userAuthByCookie,
   userLogoutThunk,
@@ -12,7 +16,6 @@ import ApplicationAlert from "./components/alert";
 import Login from "./login";
 import ProfileMenu from "./ProfileMenu";
 import { setLogin } from "./redux/features/applicationStates";
-import { setSearchInput } from "./redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 
 interface Props {
@@ -49,6 +52,7 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
 
   const setSearchInp = (e: any) => {
     dispatch(setSearchInput({ searchInput: e.target.value }));
+    dispatch(fetchProductData({ filter: { searchQuery: e.target.value } }));
   };
 
   return (
@@ -59,6 +63,13 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
       <div className="navbar_container">
         <div className="navbar_content">
           <div className="navbar_search_input_container">
+            {/* <div className="absolute left-0 right-0 top-10 bg-zinc-800 rounded-md max-h-[15rem] z-10 overflow-auto p-2">
+              {[...Array(5)].map((elm, idx) => (
+                <p className="text-sm text-slate-300 font-semibold px-3 pb-1 border-b-[0.1px] border-gray-700">
+                  PlayStation 5
+                </p>
+              ))}
+            </div> */}
             <input
               type="text"
               onChange={(e) => {

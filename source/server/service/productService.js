@@ -2,33 +2,29 @@ import Product from "../Models/productModel.js";
 
 const productService = {
   fetchAll: async (data) => {
-    // console.log(data);
     const filter = {};
     if (data) {
       for (const val in data) {
-        filter[val] = data[val];
+        if (val !== "searchQuery") {
+          filter[val] = data[val];
+        }
       }
     }
-
+    console.log(filter);
     const val = await Product.find({
       ...filter,
-      // $or: [
-      //   {
-      //     name: { $regex: new RegExp(".*" + filter?.searchQuery + ".*", "i") },
-      //   },
-      //   {
-      //     category: {
-      //       $regex: new RegExp(".*" + filter?.searchQuery + ".*", "i"),
-      //     },
-      //   },
-      //   {
-      //     subCategory: {
-      //       $regex: new RegExp(".*" + filter?.searchQuery + ".*", "i"),
-      //     },
-      //   },
-      // ],
+      $or: [
+        {
+          title: { $regex: new RegExp(".*" + data?.searchQuery + ".*", "i") },
+        },
+        {
+          "category.name": {
+            $regex: new RegExp(".*" + data?.searchQuery + ".*", "i"),
+          },
+        },
+      ],
     });
-
+    console.log(val);
     return val;
   },
   getProductById: async (id) => {
