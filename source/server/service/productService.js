@@ -2,8 +2,7 @@ import Product from "../Models/productModel.js";
 
 const productService = {
   fetchAll: async (data) => {
-    console.log("data", data);
-    const filter = {};
+    let filter = {};
     if (data) {
       for (const val in data) {
         if (val !== "searchQuery") {
@@ -11,21 +10,22 @@ const productService = {
         }
       }
     }
-    console.log(filter);
-    const val = await Product.find({
-      ...filter,
-      $or: [
-        {
-          title: { $regex: new RegExp(".*" + data?.searchQuery + ".*", "i") },
-        },
-        {
-          "category.name": {
-            $regex: new RegExp(".*" + data?.searchQuery + ".*", "i"),
+    if (data?.searchQuery) {
+      filter = {
+        ...filter,
+        $or: [
+          {
+            title: { $regex: new RegExp(".*" + data?.searchQuery + ".*", "i") },
           },
-        },
-      ],
-    });
-    // console.log(val);
+          {
+            "category.name": {
+              $regex: new RegExp(".*" + data?.searchQuery + ".*", "i"),
+            },
+          },
+        ],
+      };
+    }
+    const val = await Product.find(filter);
     return val;
   },
   getProductById: async (id) => {
