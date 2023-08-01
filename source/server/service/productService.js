@@ -2,6 +2,7 @@ import Product from "../Models/productModel.js";
 
 const productService = {
   fetchAll: async (data) => {
+    console.log("data", data);
     const filter = {};
     if (data) {
       for (const val in data) {
@@ -24,7 +25,7 @@ const productService = {
         },
       ],
     });
-    console.log(val);
+    // console.log(val);
     return val;
   },
   getProductById: async (id) => {

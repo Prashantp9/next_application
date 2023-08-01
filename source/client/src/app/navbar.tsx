@@ -52,7 +52,7 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
 
   const setSearchInp = (e: any) => {
     dispatch(setSearchInput({ searchInput: e.target.value }));
-    dispatch(fetchProductData({ filter: { searchQuery: e.target.value } }));
+    // dispatch(fetchProductData({ filter: { searchQuery: e.target.value } }));
   };
 
   return (

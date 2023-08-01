@@ -1,12 +1,15 @@
 "use client";
 
 import { AppDispatch, useAppSelector } from "../redux/store";
+import {
+  fetchProductData,
+  setSearchInput,
+} from "../redux/features/productsSlice";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import Link from "next/link";
 import ProductCard from "./ProductCard";
-import { fetchProductData } from "../redux/features/productsSlice";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "next/navigation";
 
@@ -26,6 +29,9 @@ export default function Categories() {
   //global states
   const gProduct: any[] = useSelector(
     (state) => state.rootReducer.productState.products
+  );
+  const searchInput: string = useSelector(
+    (state) => state.rootReducer.productState.searchInput
   );
 
   const getFakeCategories = async (): Promise<void> => {
@@ -61,10 +67,17 @@ export default function Categories() {
   }, []);
 
   useEffect(() => {
-    if (category) {
-      dispatch(fetchProductData({ filter: { "category.name": category } }));
+    console.log(searchInput);
+    const filter: any = {};
+    if (searchInput) {
+      filter["searchQuery"] = searchInput;
     }
-  }, [category]);
+    if (category) {
+      filter["category.name"] = category;
+    }
+    console.log(filter);
+    dispatch(fetchProductData({ filter: filter }));
+  }, [category, searchInput]);
 
   return (
     <div className="py-4">
