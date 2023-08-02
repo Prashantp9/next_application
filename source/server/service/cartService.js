@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 
 const cartService = {
   createCart: async (userId, data) => {
-    console.log(data);
     const session = await mongoose.startSession();
     const opts = { session };
     // error flag maintains error state
@@ -14,9 +13,12 @@ const cartService = {
     if (!cart) {
       return false;
     }
-    const userCart = await User_Model.findByIdAndUpdate(userId, {
-      $push: { cartItems: cart._id },
-    });
+    const userCart = await User_Model.findOneAndUpdate(
+      { _id: userId },
+      {
+        $push: { cartItems: cart[0]?._id },
+      }
+    );
     flag = flag || !userCart;
     if (flag) {
       await session.abortTransaction();

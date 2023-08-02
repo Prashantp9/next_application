@@ -196,6 +196,31 @@ const UserController = {
       next(error);
     }
   },
+  getUserController: async (req, res, next) => {
+    try {
+      const user = await userService.getUser(req.body._id);
+      if (user) {
+        return res.status(200).json({
+          type: responseType.SUCCESS,
+          message: "data fetched succesfully",
+          data: user,
+        });
+      }
+      if (!user) {
+        return res.status(400).json({
+          type: responseType.FAILURE,
+          message: "failed to fetched data",
+          error: [],
+        });
+      }
+    } catch (error) {
+      res.status(500).json({
+        type: "INTERNAL_SERVER ERROR",
+        message: "error occured",
+        error: error,
+      });
+    }
+  },
   deleteUserController: async (req, res) => {},
   updateUserController: async (req, res) => {},
   findUserController: async (req, res) => {},

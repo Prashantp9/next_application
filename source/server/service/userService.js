@@ -19,6 +19,9 @@ const userService = {
 
     return user;
   },
+  getUser: async (id) => {
+    return User_Model.findById(id);
+  },
 };
 
 export default userService;
