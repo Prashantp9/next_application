@@ -1,15 +1,16 @@
-import Cart from "../Models/cartItemModel";
-import User_Model from "../Models/userModel";
+import Cart from "../Models/cartItemModel.js";
+import User_Model from "../Models/userModel.js";
 import mongoose from "mongoose";
 
-export default cartService = {
+const cartService = {
   createCart: async (userId, data) => {
+    console.log(data);
     const session = await mongoose.startSession();
     const opts = { session };
     // error flag maintains error state
     session.startTransaction();
     let flag = false;
-    const cart = await Cart.create(data, opts);
+    const cart = await Cart.create([data], opts);
     if (!cart) {
       return false;
     }
@@ -28,3 +29,4 @@ export default cartService = {
     }
   },
 };
+export default cartService;

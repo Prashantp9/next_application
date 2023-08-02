@@ -1,10 +1,9 @@
 import { Router } from "express";
+import cartController from "../controllers/cartController.js";
 
 const cart = Router();
 
-cart.post("/", (req, res) => res.send("api works"));
-cart.post("/create_cart", (req, res) => {
-  res.send("api works");
-});
+cart.post("/test", (req, res) => res.send("api works"));
+cart.post("/create_cart", cartController.createCart);
 
-export { cart };
+export default cart;

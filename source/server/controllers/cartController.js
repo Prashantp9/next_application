@@ -1,7 +1,7 @@
-import cartService from "../service/cartService";
-import { responseType } from "../constants/allConstants";
+import cartService from "../service/cartService.js";
+import { responseType } from "../constants/allConstants.js";
 
-export default cartController = {
+const cartController = {
   createCart: async (req, res, next) => {
     try {
       const cartData = {
@@ -24,7 +24,13 @@ export default cartController = {
         });
       }
     } catch (error) {
-      console.log(error);
+      //   console.log(error);
+      return res.status(500).json({
+        type: "INTERNAL ERROR",
+        message: "error occured",
+        error: error,
+      });
     }
   },
 };
+export default cartController;
