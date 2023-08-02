@@ -21,6 +21,12 @@ const userSchema = new mongoose.Schema({
   location: {
     type: String,
   },
+  cartItems: [{
+    cartId:{
+      type : mongoose.Types.ObjectId,
+      ref: "Cart"
+    }
+  }], 
   isAdmin: {
     type: Boolean,
     default: false,
