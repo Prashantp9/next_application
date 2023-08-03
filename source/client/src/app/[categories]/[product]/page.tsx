@@ -23,6 +23,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { AppDispatch } from "@/app/redux/store";
 import Link from "next/link";
+import { addCart } from "@/app/redux/features/cartSlice";
 import { convertUrlToString } from "@/app/utils/formatingUtils";
 
 export default function ProductPage() {
@@ -62,6 +63,15 @@ export default function ProductPage() {
   const swiperStyle: any = {
     "--swiper-navigation-color": "#fff",
     "--swiper-pagination-color": "#fff",
+  };
+
+  // addto cart function
+  interface cartParams {
+    productId: string;
+    quantity: number;
+  }
+  const addProductInCart = (data: cartParams) => {
+    dispatch(addCart(data));
   };
 
   useEffect(() => {
@@ -166,7 +176,15 @@ export default function ProductPage() {
                   </button>
                 </div>
                 <div className="w-full flex flex-col gap-2 my-2 sm:flex-row sm:gap-10 md:gap-8 md:max-w-[50%] lg:max-w-full">
-                  <button className="w-full py-4 text-base border-2  border-gray-500 text-sky-100 text-center rounded-lg lg:hover:scale-105">
+                  <button
+                    onClick={() =>
+                      addProductInCart({
+                        productId: currProduct._id,
+                        quantity: productQuantity,
+                      })
+                    }
+                    className="w-full py-4 text-base border-2  border-gray-500 text-sky-100 text-center rounded-lg lg:hover:scale-105"
+                  >
                     Add to cart
                   </button>
                   <button className="w-full py-4 text-base border-2  border-gray-500 h-full text-sky-100 text-center rounded-lg lg:hover:scale-105">

@@ -1,11 +1,34 @@
-export default function CartCard() {
+"use client";
+
+import { AppDispatch, useAppSelector } from "@/app/redux/store";
+
+import { deleteCartItem } from "@/app/redux/features/cartSlice";
+import { useDispatch } from "react-redux";
+
+interface cart {
+  readonly _id: string;
+  readonly productId: {} | any;
+  readonly quantity: number;
+}
+type Props = any;
+
+export default function CartCard({ Cart }: Props) {
+  // react hooks
+  const dispatch = useDispatch<AppDispatch>();
+
+  // delete cart function
+  const deleteCart = (id: string) => {
+    dispatch(deleteCartItem({ cartId: id }));
+  };
+
+  const { _id, productId, quantity } = Cart as cart;
   return (
     <>
       <div className="h-auto w-full py-5 px-2 bg-gray-900 rounded-md flex relative">
         <div className="h-[7rem] w-[6rem] min-w-[6rem]">
           <img
-            className="w-full h-full object-cover rounded-md"
-            src="https://images.unsplash.com/photo-1582666251140-ea98398b1afd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80"
+            className="w-full h-full object-scale-down rounded-md"
+            src={productId?.image}
             alt=""
           />
         </div>
@@ -13,9 +36,9 @@ export default function CartCard() {
           <div className="h-[7rem] flex flex-col justify-between">
             <div className="flex h-full flex-col gap-2">
               <p className="text-sm font-semibold text-slate-200">
-                Playstation 4 controller
+                {productId.title}
               </p>
-              <p className="text-sm font-bold">$ 40</p>
+              <p className="text-sm font-bold">$ {productId.price}</p>
             </div>
             <div className="text-xs font-semibold text-green-600">In Stock</div>
           </div>
@@ -24,7 +47,7 @@ export default function CartCard() {
               +
             </button>
             <p className="h-full w-full text-xs flex whitespace-nowrap justify-center items-center font-bold">
-              1
+              {quantity}
             </p>
             <button className="h-full w-full  text-slate-100 bg-slate-800 rounded-tr-md rounded-br-md">
               -
@@ -38,6 +61,7 @@ export default function CartCard() {
             id="cancel"
             width="20"
             height={20}
+            onClick={() => deleteCart(_id)}
           >
             <path
               fill="#E2E8F0"
