@@ -27,7 +27,7 @@ export default function CartCard({ Cart }: Props) {
       <div className="h-auto w-full py-5 px-2 bg-gray-900 rounded-md flex relative">
         <div className="h-[7rem] w-[6rem] min-w-[6rem]">
           <img
-            className="w-full h-full object-scale-down rounded-md"
+            className="w-full h-full object-fill rounded-md"
             src={productId?.image}
             alt=""
           />
@@ -36,13 +36,13 @@ export default function CartCard({ Cart }: Props) {
           <div className="h-[7rem] flex flex-col justify-between">
             <div className="flex h-full flex-col gap-2">
               <p className="text-sm font-semibold text-slate-200">
-                {productId.title}
+                {productId.title?.slice(0, 25) + "..."}
               </p>
               <p className="text-sm font-bold">$ {productId.price}</p>
             </div>
             <div className="text-xs font-semibold text-green-600">In Stock</div>
           </div>
-          <div className="w-[6rem] grid grid-cols-3 items-center h-9 mt-1">
+          <div className="min-w-[6rem] w-[6rem] grid grid-cols-3 items-center h-9 mt-1">
             <button className="h-full text-slate-100 w-full bg-slate-800 rounded-tl-md rounded-bl-md">
               +
             </button>
