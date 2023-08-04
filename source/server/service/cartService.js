@@ -18,7 +18,7 @@ const cartService = {
       totalAmount += total;
     });
 
-    return { cart: cart, cartTotal: totalAmount };
+    return { cart: cart, cartTotal: Math.ceil(totalAmount) };
   },
 
   createCart: async (userId, data) => {
@@ -68,6 +68,10 @@ const cartService = {
       session.endSession();
       return cart;
     }
+  },
+  updateUserCart: async (cartId, update) => {
+    const updateCart = await Cart.findByIdAndUpdate(cartId, update);
+    return updateCart;
   },
 };
 export default cartService;

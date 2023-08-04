@@ -58,6 +58,21 @@ export const deleteCartItem = createAsyncThunk(
   }
 );
 
+export const updateCartItem = createAsyncThunk(
+  "http://localhost:5000/user/auth_user/cart/update_user_cart",
+  async (data: { cartId: string; update: any }) => {
+    try {
+      const response = await axios.post(
+        `${BASE_URL}/user/auth_user/cart/update_user_cart`,
+        data
+      );
+      return response.data;
+    } catch (error: any) {
+      return error.data;
+    }
+  }
+);
+
 type addCartType = {
   productId: string;
   quantity: number;
@@ -167,6 +182,31 @@ export const cartState = createSlice({
         }
       })
       .addCase(addCart.rejected, (state: initialState, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.errorData = INTERNAL_ERROR;
+      })
+      // updateCartItem
+      .addCase(updateCartItem.pending, (state: initialState, payload: any) => {
+        state.isLoading = true;
+      })
+      .addCase(updateCartItem.fulfilled, (state: initialState, action: any) => {
+        state.isLoading = false;
+        switch (action.payload.type) {
+          case Type.SUCCESS:
+            state.stateUpdate = !state.stateUpdate;
+            break;
+          default:
+            state.isError = true;
+            state.errorData = {
+              message: action.payload.message,
+              type: action.payload.type,
+              error: action.payload.errors,
+            };
+            break;
+        }
+      })
+      .addCase(updateCartItem.rejected, (state: initialState, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.errorData = INTERNAL_ERROR;

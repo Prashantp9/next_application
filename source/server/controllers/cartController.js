@@ -85,5 +85,33 @@ const cartController = {
       });
     }
   },
+  updateUserCart: async (req, res, next) => {
+    try {
+      const { cartId, update } = req.body;
+      const response = await cartService.updateUserCart(cartId, update);
+      if (response) {
+        return res.status(200).json({
+          type: responseType.SUCCESS,
+          message: "cart has been updated successfully",
+          data: response,
+        });
+      }
+      if (!response) {
+        return res.status(400).json({
+          type: responseType.FAILURE,
+          message: "failed to update cart",
+          error: [],
+        });
+      }
+    } catch (error) {
+      // to be removed after completion
+      console.log(error);
+      return res.status(500).json({
+        type: "INTERNAL ERROR",
+        message: "internal error occured",
+        error: [],
+      });
+    }
+  },
 };
 export default cartController;

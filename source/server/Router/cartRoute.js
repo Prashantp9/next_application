@@ -8,5 +8,5 @@ cart.post("/test", (req, res) => res.send("api works"));
 cart.post("/create_cart", cartController.createCart);
 cart.post("/delete_cart", cartController.deleteCart);
 cart.post("/get_user_cart", cartController.getUserCart);
-
+cart.post("/update_user_cart", cartController.updateUserCart);
 export default cart;
