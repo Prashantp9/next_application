@@ -23,8 +23,10 @@ import { useParams, useRouter } from "next/navigation";
 
 import { AppDispatch } from "@/app/redux/store";
 import Link from "next/link";
+import { Type } from "@/app/constants/constants";
 import { addCart } from "@/app/redux/features/cartSlice";
 import { convertUrlToString } from "@/app/utils/formatingUtils";
+import { setLogin } from "@/app/redux/features/applicationStates";
 
 export default function ProductPage() {
   // react hooks
@@ -71,7 +73,11 @@ export default function ProductPage() {
     quantity: number;
   }
   const addProductInCart = (data: cartParams) => {
-    dispatch(addCart(data));
+    dispatch(addCart(data)).then((data) => {
+      if (data.payload.type == Type.FAILURE) {
+        dispatch(setLogin(""));
+      }
+    });
   };
 
   useEffect(() => {

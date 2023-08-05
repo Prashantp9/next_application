@@ -1,5 +1,5 @@
 import { BASE_URL, INTERNAL_ERROR, Type } from "@/app/constants/constants";
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { productState } from "./productsSlice";
@@ -87,7 +87,8 @@ export const addCart = createAsyncThunk(
       );
       return response.data;
     } catch (error: any) {
-      return error.data;
+      console.log(error);
+      return error.response.data;
     }
   }
 );
@@ -96,7 +97,7 @@ export const cartState = createSlice({
   name: "cartState",
   initialState: initialState,
   reducers: {
-    setError: (state: initialState) => {
+    setError: (state: initialState, action: PayloadAction<string>) => {
       (state.isError = false), (state.errorData = {});
     },
   },
@@ -142,7 +143,7 @@ export const cartState = createSlice({
       })
       .addCase(deleteCartItem.fulfilled, (state: initialState, action: any) => {
         state.isLoading = false;
-        switch (action.payload.type) {
+        switch (action?.payload?.type) {
           case Type.SUCCESS:
             state.stateUpdate = !state.stateUpdate;
             break;
@@ -167,16 +168,16 @@ export const cartState = createSlice({
       })
       .addCase(addCart.fulfilled, (state: initialState, action: any) => {
         state.isLoading = false;
-        switch (action.payload.type) {
+        switch (action?.payload?.type) {
           case Type.SUCCESS:
             state.stateUpdate = !state.stateUpdate;
             break;
           default:
             state.isError = true;
             state.errorData = {
-              message: action.payload.message,
-              type: action.payload.type,
-              error: action.payload.errors,
+              message: action?.payload?.message,
+              type: action?.payload?.type,
+              error: action?.payload?.errors,
             };
             break;
         }

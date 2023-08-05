@@ -18,8 +18,14 @@ export default function Login() {
   const isError = useAppSelector(
     (state) => state.rootReducer.authReducer.value.isError
   );
+  const isErrorOther = useAppSelector(
+    (state) => state.rootReducer.cartSlice.isError
+  );
   const errorData = useAppSelector(
     (state) => state.rootReducer.authReducer.value.errorData
+  );
+  const cartErrorData = useAppSelector(
+    (state) => state.rootReducer.cartSlice.errorData
   );
   const dispatch = useDispatch<AppDispatch>();
 
@@ -60,13 +66,14 @@ export default function Login() {
   return (
     <>
       {/* Errro handling */}
-      {isError && (
-        <ApplicationAlert
-          success={true}
-          errorData={errorData}
-          setAlert={setAlert}
-        />
-      )}
+      {isError ||
+        (isErrorOther && (
+          <ApplicationAlert
+            success={true}
+            errorData={errorData || cartErrorData}
+            setAlert={setAlert}
+          />
+        ))}
       <div>
         <div
           className="login-page"
