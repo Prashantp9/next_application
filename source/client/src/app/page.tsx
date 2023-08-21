@@ -18,10 +18,12 @@ import {
   Zoom,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import Link from "next/link";
 import ProductCard from "./[categories]/ProductCard";
-import { useSelector } from "react-redux";
+import { fetchProductData } from "./redux/features/productsSlice";
 
 export default function Home() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -32,6 +34,11 @@ export default function Home() {
   const gProduct: any[] = useSelector(
     (state: any) => state.rootReducer.productState.products
   );
+
+  const dispatch = useDispatch<AppDispatch>();
+  useEffect(() => {
+    dispatch(fetchProductData({}));
+  }, []);
 
   return (
     <div className="flex flex-col w-full h-full lg:overflow-y-scroll lg:h-[100vh]">
@@ -83,7 +90,10 @@ export default function Home() {
         <div className="flex justify-center self-center w-[90%]">
           <div className="grid justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {gProduct.slice(0, 8).map((elm: any, idx: number) => (
-              <div className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md">
+              <Link
+                href={`/${elm.category?.name}/${elm._id}`}
+                className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
+              >
                 <div className="w-full h-full min-h-48 max-h-48">
                   <img
                     src={elm.image}
@@ -128,7 +138,7 @@ export default function Home() {
                     </svg>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
