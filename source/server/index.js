@@ -23,7 +23,7 @@ connectDB();
 //app Routes
 app.use("/user", userRouter);
 app.use("/public", publicRoute);
-app.get("test", (req, res) => res.send("server running"));
+app.get("/test", (req, res) => { console.log("req send") ; res.send("server running")});
 
 app.listen(PORT, () => {
   console.log(`application running on PORT ${PORT}`);
