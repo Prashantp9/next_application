@@ -22,7 +22,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import ProductCard from "./categories/[categories]/[product]/ProductCard";
 import { fetchProductData } from "./redux/features/productsSlice";
 
 export default function Home() {
@@ -91,7 +90,7 @@ export default function Home() {
           <div className="grid justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {gProduct.slice(0, 8).map((elm: any, idx: number) => (
               <Link
-                href={`/${elm.category?.name}/${elm._id}`}
+                href={`/categories/${elm.category?.name}/${elm._id}`}
                 className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
               >
                 <div className="w-full h-full min-h-48 max-h-48">

@@ -52,7 +52,7 @@ export default function ProfileMenu({ onclick }: Props) {
         </div>
 
         <Link
-          href={`cart/${userId}`}
+          href={`/cart/${userId}`}
           onClick={() => onclick()}
           className="w-full flex justify-between gap-2 px-3"
         >
