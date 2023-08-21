@@ -55,7 +55,7 @@ export default function Sidebar({ setSidebar }: Props) {
             </Link>
             <Link
               className="sidebar-link trending"
-              href="/categories"
+              href="/categories/categories"
               onClick={() => setSidebar()}
             >
               <svg viewBox="0 0 24 24" fill="currentColor">

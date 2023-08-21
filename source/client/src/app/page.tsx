@@ -22,7 +22,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import Link from "next/link";
-import ProductCard from "./[categories]/ProductCard";
+import ProductCard from "./categories/[categories]/[product]/ProductCard";
 import { fetchProductData } from "./redux/features/productsSlice";
 
 export default function Home() {

@@ -1,10 +1,10 @@
 "use client";
 
-import { AppDispatch, useAppSelector } from "../redux/store";
+import { AppDispatch, useAppSelector } from "../../../redux/store";
 import {
   fetchProductData,
   setSearchInput,
-} from "../redux/features/productsSlice";
+} from "../../../redux/features/productsSlice";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
