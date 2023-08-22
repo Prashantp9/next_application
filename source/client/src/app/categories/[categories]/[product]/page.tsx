@@ -108,7 +108,7 @@ export default function ProductPage() {
             >
               {currProduct.image?.length > 1 ? (
                 currProduct.image.map((elm: string, idx: number) => (
-                  <SwiperSlide>
+                  <SwiperSlide key={idx}>
                     <img
                       className="rounded-lg object-cover  w-full h-full"
                       src={elm}
@@ -239,8 +239,8 @@ export default function ProductPage() {
                   },
                 }}
               >
-                {suggestedProduct.map((elm: any, idx: Number) => (
-                  <SwiperSlide>
+                {suggestedProduct.map((elm: any, idx: any) => (
+                  <SwiperSlide key={idx}>
                     <Link
                       href={`/categories/${elm?.category?.name}/${elm._id}`}
                       className="w-full"

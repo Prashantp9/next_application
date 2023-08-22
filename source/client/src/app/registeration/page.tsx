@@ -2,30 +2,31 @@
 
 import * as yup from "yup";
 
-import { AppDispatch, useAppSelector } from "../redux/store";
 import {
   setCustomAlert,
   userRegistrationThunk,
 } from "../redux/features/userAuthSlice";
 
+import { AppDispatch } from "../redux/store";
 import ApplicationAlert from "../components/alert";
 import ApplicationAlertFunction from "../components/alert";
 import { Type } from "../constants/constants";
-import { useDispatch } from "react-redux";
+import { UseAppSelector } from "../redux/store";
+import { useDispatch as UseDispatch } from "react-redux";
+import { useForm as UseForm } from "react-hook-form";
+import { useRouter as UseRouter } from "next/navigation";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function registeration() {
-  const isError = useAppSelector(
+  const isError = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.isError
   );
-  const errorData = useAppSelector(
+  const errorData = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.errorData
   );
-  const router = useRouter();
-  const dispatch = useDispatch<AppDispatch>();
+  const router = UseRouter();
+  const Dispatch = UseDispatch<AppDispatch>();
   type FormData = yup.InferType<typeof schema>;
   const phoneRegExp =
     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
@@ -42,7 +43,7 @@ export default function registeration() {
   });
 
   const onSubmit = (data: FormData) => {
-    dispatch(userRegistrationThunk(data)).then((data) => {
+    Dispatch(userRegistrationThunk(data)).then((data) => {
       if (data.payload.type == Type.SUCCESS) {
         router.push("/");
       }
@@ -56,7 +57,7 @@ export default function registeration() {
     watch,
     setValue,
     setError,
-  } = useForm({
+  } = UseForm({
     resolver: yupResolver(schema),
   });
 
@@ -67,7 +68,7 @@ export default function registeration() {
   };
 
   const setAlert = () => {
-    dispatch(setCustomAlert());
+    Dispatch(setCustomAlert());
   };
   return (
     <>

@@ -1,10 +1,6 @@
 "use client";
 
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
-// import {
-//   fetchProductData,
-//   setSearchInput,
-// } from "../redux/features/productsSlice";
+import { AppDispatch, UseAppSelector } from "@/app/redux/store";
 import {
   fetchProductData,
   setSearchInput,
@@ -17,6 +13,11 @@ import ProductCard from "./ProductCart";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "next/navigation";
 
+// import {
+//   fetchProductData,
+//   setSearchInput,
+// } from "../redux/features/productsSlice";
+
 export default function Categories() {
   // useState states
   const [categories, setCategories] = useState([]);
@@ -26,7 +27,7 @@ export default function Categories() {
   const pathname = usePathname();
   const searchParams = useSearchParams()!;
   const dispatch = useDispatch<AppDispatch>();
-  const useSelector = useAppSelector;
+  const useSelector = UseAppSelector;
   //Search params
   const category = searchParams.get("category");
   //temporary function for fetching fake data
@@ -122,8 +123,9 @@ export default function Categories() {
           </svg>
           {isCategory && (
             <div className="flex flex-col h-[15rem] overflow-y-scroll top-10 left-0 right-0 rounded-md absolute z-10 bg-neutral-700 py-2 ">
-              {categories.concat(categories).map((elm: any, idx: Number) => (
+              {categories.concat(categories).map((elm: any, idx: any) => (
                 <p
+                  key={idx}
                   onClick={() => changeSearchParams("category", elm)}
                   className=" pl-[1rem] pr-[1rem] py-3 text-slate-100  whitespace-nowrap"
                 >
@@ -138,6 +140,7 @@ export default function Categories() {
         <div className="grid w-[90%]  justify-items-center grid-cols-1 pt-4 h-full gap-4 lg:grid-rows-[auto_minmax(auto,1fr)] sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {gProduct?.map((elm: any, idx: number) => (
             <Link
+              key={idx}
               href={`/categories/${elm?.category?.name}/${elm._id}`}
               className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
             >

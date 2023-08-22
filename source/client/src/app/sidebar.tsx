@@ -5,14 +5,14 @@ import "./styles/sidebar.css";
 import { SetStateAction, use } from "react";
 
 import Link from "next/link";
-import { useAppSelector } from "./redux/store";
+import { UseAppSelector } from "./redux/store";
 
 interface Props {
   setSidebar: () => void;
 }
 //
 export default function Sidebar({ setSidebar }: Props) {
-  const userId: string | any = useAppSelector(
+  const userId: string | any = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.id
   );
 

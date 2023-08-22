@@ -1,6 +1,6 @@
 "use client";
 
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { AppDispatch, UseAppSelector } from "@/app/redux/store";
 
 import CartCard from "./Cartcard";
 import { getUserCartThunk } from "@/app/redux/features/cartSlice";
@@ -10,7 +10,7 @@ import { useEffect } from "react";
 export default function Page() {
   // react hooks
   const dispatch = useDispatch<AppDispatch>();
-  const useSelector = useAppSelector;
+  const useSelector = UseAppSelector;
   // global states
   const userCart = useSelector((state) => state.rootReducer.cartSlice.userCart);
   const updateState = useSelector(
@@ -36,7 +36,7 @@ export default function Page() {
         <div className="grid w-full grid-cols-5 gap-2">
           <div className="col-span-5 md:col-span-3 overflow-y-scroll flex flex-col h-[50vh] md:h-[83vh] gap-2 p-2 border-b-[1px] border-slate-300 pb-3">
             {userCart.map((elm, idx) => (
-              <CartCard Cart={elm} />
+              <CartCard Cart={elm} key={idx} />
             ))}
           </div>
           <div className="flex flex-col col-span-5 md:col-span-2">

@@ -1,4 +1,4 @@
-import { AppDispatch, useAppSelector } from "./redux/store";
+import { AppDispatch, UseAppSelector } from "./redux/store";
 
 import Link from "next/link";
 import { profile } from "console";
@@ -12,10 +12,10 @@ interface Props {
 
 export default function ProfileMenu({ onclick }: Props) {
   const dispatch = useDispatch<AppDispatch>();
-  const userLogin = useAppSelector(
+  const userLogin = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.isLogin
   );
-  const userId = useAppSelector(
+  const userId = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.id
   );
 

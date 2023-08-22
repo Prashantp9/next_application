@@ -1,6 +1,6 @@
 import "./navbar.css";
 
-import { AppDispatch, useAppSelector } from "./redux/store";
+import { AppDispatch, UseAppSelector } from "./redux/store";
 import { ChangeEvent, useEffect, useState } from "react";
 import {
   fetchProductData,
@@ -28,13 +28,13 @@ export default function Navbar({ isSidebar, setSidebar }: Props) {
   const [isProfile, setProfile] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const handleLogin = () => dispatch(setLogin(""));
-  const userLogin = useAppSelector(
+  const userLogin = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.isLogin
   );
-  const isLogin = useAppSelector(
+  const isLogin = UseAppSelector(
     (state) => state.rootReducer.appState.value.isLogin
   );
-  const userName = useAppSelector(
+  const userName = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.userName
   );
 

@@ -2,7 +2,7 @@ import "./navbar.css";
 
 import * as yup from "yup";
 
-import { AppDispatch, useAppSelector } from "./redux/store";
+import { AppDispatch, UseAppSelector } from "./redux/store";
 import { setCustomAlert, userLoginThunk } from "./redux/features/userAuthSlice";
 
 import ApplicationAlert from "./components/alert";
@@ -15,16 +15,16 @@ import { yupResolver } from "@hookform/resolvers/yup";
 
 export default function Login() {
   // global states =============================================================
-  const isError = useAppSelector(
+  const isError = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.isError
   );
-  const isErrorOther = useAppSelector(
+  const isErrorOther = UseAppSelector(
     (state) => state.rootReducer.cartSlice.isError
   );
-  const errorData = useAppSelector(
+  const errorData = UseAppSelector(
     (state) => state.rootReducer.authReducer.value.errorData
   );
-  const cartErrorData = useAppSelector(
+  const cartErrorData = UseAppSelector(
     (state) => state.rootReducer.cartSlice.errorData
   );
   const dispatch = useDispatch<AppDispatch>();

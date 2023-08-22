@@ -1,6 +1,6 @@
 "use client";
 
-import { AppDispatch, useAppSelector } from "@/app/redux/store";
+import { AppDispatch, UseAppSelector } from "@/app/redux/store";
 import {
   deleteCartItem,
   getUserCartThunk,
@@ -21,7 +21,7 @@ export default function CartCard({ Cart }: Props) {
   const { _id, productId, quantity } = Cart as cart;
   // react hooks
   const dispatch = useDispatch<AppDispatch>();
-  const updateState = useAppSelector(
+  const updateState = UseAppSelector(
     (state) => state.rootReducer.cartSlice.stateUpdate
   );
   // delete cart function

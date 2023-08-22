@@ -7,7 +7,7 @@ import "swiper/css/free-mode";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
 
-import { AppDispatch, useAppSelector } from "./redux/store";
+import { AppDispatch, UseAppSelector } from "./redux/store";
 import {
   Autoplay,
   FreeMode,
@@ -59,9 +59,9 @@ export default function Home() {
             modules={[Autoplay, Pagination, Navigation, Zoom, Thumbs]}
             className="w-[90vw] h-[15rem] md:h-[25rem] sm:w-[33rem] md:w-[45rem] lg:w-[60rem] xl:w-[80rem]"
           >
-            {product.map((data: any) => {
+            {product.map((data: any, idx: number) => {
               return (
-                <SwiperSlide>
+                <SwiperSlide key={idx}>
                   <div
                     className="swiper-zoom-container"
                     style={{ width: "100%", height: "100%" }}
@@ -90,6 +90,7 @@ export default function Home() {
           <div className="grid justify-items-center grid-cols-1 pt-4 h-full gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {gProduct.slice(0, 8).map((elm: any, idx: number) => (
               <Link
+                key={idx}
                 href={`/categories/${elm.category?.name}/${elm._id}`}
                 className="w-full h-full flex flex-col p-3 bg-zinc-800 rounded-md"
               >
