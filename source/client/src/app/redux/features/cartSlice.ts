@@ -115,7 +115,7 @@ export const cartState = createSlice({
           state.isLoading = false;
           switch (action.payload.type) {
             case Type.SUCCESS:
-              state.userCart = action.payload.data?.cart?.cartItems;
+              state.userCart = action.payload.data?.cart;
               state.cartTotal = action.payload.data?.cartTotal;
               break;
             default:

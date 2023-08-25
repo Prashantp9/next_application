@@ -23,9 +23,9 @@ export default function Page() {
     dispatch(getUserCartThunk());
   }, [updateState]);
 
-  useEffect(() => {
-    dispatch(getUserCartThunk());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getUserCartThunk());
+  // }, []);
 
   return (
     <div className="flex justify-center items-center">
@@ -35,7 +35,7 @@ export default function Page() {
         </div>
         <div className="grid w-full grid-cols-5 gap-2">
           <div className="col-span-5 md:col-span-3 overflow-y-scroll flex flex-col h-[50vh] md:h-[83vh] gap-2 p-2 border-b-[1px] border-slate-300 pb-3">
-            {userCart.map((elm, idx) => (
+            {userCart?.map((elm, idx) => (
               <CartCard Cart={elm} />
             ))}
           </div>

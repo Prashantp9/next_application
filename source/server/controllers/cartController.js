@@ -5,6 +5,7 @@ const cartController = {
   createCart: async (req, res, next) => {
     try {
       const cartData = {
+        userId: req.body._id,
         productId: req.body.productId,
         quantity: req.body.quantity,
       };
@@ -63,6 +64,7 @@ const cartController = {
   getUserCart: async (req, res, next) => {
     try {
       const response = await cartService.getUserCart(req.body._id);
+      console.log(response);
       if (response) {
         return res.status(200).json({
           type: responseType.SUCCESS,

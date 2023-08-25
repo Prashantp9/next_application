@@ -5,19 +5,13 @@ import mongoose from "mongoose";
 
 const cartService = {
   getUserCart: async (userId) => {
-    const cart = await User_Model.findById(userId, { cartItems: 1 }).populate({
-      path: "cartItems",
-      populate: {
-        path: "productId",
-        model: "products",
-      },
-    });
+    console.log(userId);
+    const cart = await Cart.find({ userId: userId }).populate("productId");
     let totalAmount = 0;
-    cart.cartItems.map((elm, idx) => {
+    for (const elm of cart) {
       let total = elm?.productId?.price * elm.quantity;
       totalAmount += total;
-    });
-
+    }
     return { cart: cart, cartTotal: Math.ceil(totalAmount) };
   },
 

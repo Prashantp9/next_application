@@ -40,9 +40,9 @@ export default function CartCard({ Cart }: Props) {
     );
   };
 
-  useEffect(() => {
-    dispatch(getUserCartThunk());
-  }, [updateState]);
+  // useEffect(() => {
+  //   dispatch(getUserCartThunk());
+  // }, [updateState]);
 
   return (
     <>
