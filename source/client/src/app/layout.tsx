@@ -23,48 +23,39 @@ export default function RootLayout({
 }) {
   const [sidebar, SetSidebar] = useState(false);
 
-  
-  return(
-    <div className="flex w-[100vw] h-[100vh] ">
-
-      <h1 style={{alignSelf:"center" ,justifySelf: "center"}}>Hello from next application</h1>
-
-    </div>
-  )
-
-  // return (
-  //   <html lang="en">
-  //     <body className={`${inter.className}`}>
-  //       <ReduxProvider>
-  //         <div className="applayout_container">
-  //           <div
-  //             className={`${
-  //               sidebar
-  //                 ? "applayout_sidebar_container_active"
-  //                 : "applayout_sidebar_container"
-  //             }`}
-  //           >
-  //             <Sidebar setSidebar={() => SetSidebar(!sidebar)} />
-  //           </div>
-  //           <div
-  //             className={`${
-  //               sidebar
-  //                 ? "applayout_hori_container_active"
-  //                 : "applayout_hori_container"
-  //             }`}
-  //           >
-  //             <div className="app_navbar_container">
-  //               <Navbar
-  //                 isSidebar={sidebar}
-  //                 setSidebar={() => SetSidebar(!sidebar)}
-  //               />
-  //             </div>
-  //             <div className="applayout_children_container">{children}</div>
-  //           </div>
-  //         </div>
-  //       </ReduxProvider>
-  //     </body>
-  //   </html>
-  // );
+  return (
+    <html lang="en">
+      <body className={`${inter.className}`}>
+        <ReduxProvider>
+          <div className="applayout_container">
+            <div
+              className={`${
+                sidebar
+                  ? "applayout_sidebar_container_active"
+                  : "applayout_sidebar_container"
+              }`}
+            >
+              <Sidebar setSidebar={() => SetSidebar(!sidebar)} />
+            </div>
+            <div
+              className={`${
+                sidebar
+                  ? "applayout_hori_container_active"
+                  : "applayout_hori_container"
+              }`}
+            >
+              <div className="app_navbar_container">
+                <Navbar
+                  isSidebar={sidebar}
+                  setSidebar={() => SetSidebar(!sidebar)}
+                />
+              </div>
+              <div className="applayout_children_container">{children}</div>
+            </div>
+          </div>
+        </ReduxProvider>
+      </body>
+    </html>
+  );
 
 }

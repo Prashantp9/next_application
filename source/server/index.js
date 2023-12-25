@@ -7,9 +7,10 @@ import express from "express";
 import publicRoute from "./Router/publicRoute.js";
 import userRouter from "./Router/userRoute.js";
 
+const corsEnabledPorts = ["*", "http://192.168.2.102:3000/"]
 const app = express();
 app.use(
-  "*",
+  corsEnabledPorts,
   cors({
     origin: true,
     credentials: true,
